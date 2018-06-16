@@ -6,6 +6,17 @@
 
 {% block contents %}
 <h1>{{username}}さんようこそ！</h1>
+<h1>商品一覧</h1>
+{% for good in goods %}
+<tr>
+  <td>{{good.id}}</td>
+  <td>{{good.goods_name}}</td>
+  <td>{{good.rental_fee}}</td>
+  <td>{{good.description}}</td>
+  <br>
+</tr>
+{% endfor %}
+
 <p>ここに写真やらたくさん乗っけて、写真をクリックすると詳細を見れるようにする。</p>
 <h1>必要な機能①
   検索窓</h1>
