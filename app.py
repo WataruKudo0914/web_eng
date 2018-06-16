@@ -1,4 +1,5 @@
 from flask import Flask, render_template,request
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -22,6 +23,11 @@ def login_success():
     else:
         return render_template("error.html")
 
+@app.route("/top_page",methods=["GET"])
+def top_page():
+    username = "ゲスト"
+    return render_template("top_page.html",username=username)
+
 @app.route("/post_goods")
 def post_goods():
     return render_template("post_goods.html")
@@ -36,6 +42,7 @@ def complete_post_goods():
         goods_name = request.form['goods_name']
         rental_fee = request.form['rental_fee']
         description = request.form['description']
+
         return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description)
     else:
         return render_template("error.html")

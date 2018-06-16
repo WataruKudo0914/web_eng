@@ -1,23 +1,22 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>出品</title>
-  </head>
-  <body>
-    <h1>出品</h1>
-    <form method="POST" action="/complete_post_goods",enctype="mulitpart/form-data">
-      <input placeholder="商品名" name="goods_name" type="text"/>
-      <input placeholder="レンタル料" name="rental_fee" type="text"/>
-      <textarea name="description" placeholder="説明文を書きましょう。">
-      </textarea>
-      <input value="送信" type="submit"/>
-    </form>
+{% extends "page_template.html" %}
+{% block title %}出品{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
 
-    <p>
-    商品の出品を行う</p>
+{% block contents %}
+<h1>出品</h1>
+<form method="POST" action="/complete_post_goods" enctype="mulitpart/form-data">
+  <input placeholder="商品名" name="goods_name" type="text"/>
+  <input placeholder="レンタル料" name="rental_fee" type="text"/>
+  <textarea name="description" placeholder="説明文を書きましょう。">
+  </textarea>
+  <input name="image" type="file"/>
+  <input value="送信" type="submit"/>
+</form>
 
-    <a href="#" onclick="history.back(); return false;">前に戻る</a>
+<p>
+商品の出品を行う</p>
 
-  </body>
-</html>
+<a href="#" onclick="history.back(); return false;">前に戻る</a>
+{% endblock %}

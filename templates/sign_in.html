@@ -1,12 +1,11 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>サインイン</title>
-  </head>
-  <body>
-    <h1>サインイン</h1>
-    <p>未実装</p>
-    <a href="#" onclick="history.back(); return false;">前に戻る</a>
-  </body>
-</html>
+{% extends "page_template.html" %}
+{% block title %}サインイン{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+
+{% block contents %}
+  <h1>サインイン</h1>
+  <p>未実装</p>
+  <a href="#" onclick="history.back(); return false;">前に戻る</a>
+{% endblock %}
