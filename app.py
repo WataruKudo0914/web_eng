@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
 #データベースの構造を変えたら
-# flask db update　コマンドをうってマイグレーとする。
+# flask db update　コマンドをうってマイグレートする。
 #userのdb
 class User_table(db.Model):
     id= db.Column(db.Integer,primary_key =True)
@@ -28,15 +28,6 @@ class Goods_table(db.Model):
     description=db.Column(db.String(100))
     def __repr__(self):
         return '<User %r>'%self.username
-
-@app.route('/test')
-def register():
-    new_User=User_table(username='shumpei_kikuta')
-    db.session.add(new_User)
-    db.session.commit()
-    # username = 'shumpei kikuta'
-    return render_template('result.html',username = new_User)
-
 
 @app.route('/')
 def index():
@@ -73,10 +64,15 @@ def chat():
 
 @app.route("/complete_post_goods",methods=["POST"])
 def complete_post_goods():
-    if request.form['goods_name'] and request.form['rental_fee'] and request.form["description"]:
+    # なぜか画像のアップロードがうまくいかない。
+    # request.files['image']
+    if request.form['goods_name'] and request.form['rental_fee'] and request.form['description']:
         goods_name = request.form['goods_name']
         rental_fee = request.form['rental_fee']
         description = request.form['description']
+        # f = request.files['image']
+        # filepath = 'static/' + f.filename
+        # f.save(filepath)
         new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description)
         db.session.add(new_goods)
         db.session.commit()
