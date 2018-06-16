@@ -1,19 +1,29 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>サービス名</title>
-  </head>
-  <body>
-    <h1>{{username}}さんようこそ！</h1>
-    <p>ここに写真やらたくさん乗っけて、写真をクリックすると詳細を見れるようにする。</p>
-    <h1>必要な機能①
-      検索窓</h1>
-    <h1>必要な機能②
-      出品できること</h1>
-      <a href="/post_goods">こちらから出品</a>
-    <h1>必要な機能③
-      チャットスペースを作ること</h1>
-      <a href="/chat">チャットスペースへ</a>
-  </body>
-</html>
+{% extends "page_template.html" %}
+{% block title %}page top{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+
+{% block contents %}
+<h1>{{username}}さんようこそ！</h1>
+<h1>商品一覧</h1>
+{% for good in goods %}
+<tr>
+  <td>{{good.id}}</td>
+  <td>{{good.goods_name}}</td>
+  <td>{{good.rental_fee}}</td>
+  <td>{{good.description}}</td>
+  <br>
+</tr>
+{% endfor %}
+
+<p>ここに写真やらたくさん乗っけて、写真をクリックすると詳細を見れるようにする。</p>
+<h1>必要な機能①
+  検索窓</h1>
+<h1>必要な機能②
+  出品できること</h1>
+  <a href="/post_goods">こちらから出品</a>
+<h1>必要な機能③
+  チャットスペースを作ること</h1>
+  <a href="/chat">チャットスペースへ</a>
+{% endblock %}
