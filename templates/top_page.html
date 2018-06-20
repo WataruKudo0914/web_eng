@@ -21,6 +21,11 @@
 <p>ここに写真やらたくさん乗っけて、写真をクリックすると詳細を見れるようにする。</p>
 <h1>必要な機能①
   検索窓</h1>
+<form method="POST" action="/search_result" enctype="multipart/form-data">
+  <label>検索</label><br>
+  <input placeholder="商品名" name="search_name" type="text"/><br>
+</form>
+
 <h1>必要な機能②
   出品できること</h1>
   <a href="/post_goods">こちらから出品</a>

@@ -1,0 +1,19 @@
+{% extends "page_template.html" %}
+{% block title %}検索結果{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+
+{% block contents %}
+<h1>検索結果はこちらです。</h1>
+{% for good in goods %}
+<tr>
+  <td>{{good.id}}</td>
+  <td>{{good.goods_name}}</td>
+  <td>{{good.rental_fee}}</td>
+  <td>{{good.description}}</td>
+  <td><img src={{good.filepath}}/ width=200px height=200px  ></td>
+  <br>
+</tr>
+{% endfor %}
+{% endblock %}
