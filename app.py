@@ -80,6 +80,15 @@ def complete_post_goods():
     else:
         return render_template("error.html")
 
+@app.route('/search_result',methods=["POST"])
+def search_result():
+    if request.form['search_name']:
+        search_name=request.form['search_name']
+        goods = Goods_table.query.filter(Goods_table.goods_name==search_name)
+        return render_template("search_result.html",goods=goods)
+    else:
+        return render_template("error.html")
+
 #テーブルの初期化のコマンド、これをしないとSQLAlchemyがdbにアクセスできない。
 @app.cli.command('initdb')
 def initdb_command():
