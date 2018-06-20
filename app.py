@@ -18,6 +18,7 @@ migrate = Migrate(app,db)
 class User_table(db.Model):
     id= db.Column(db.Integer,primary_key =True)
     username = db.Column(db.String(20),index=True,unique=True)
+    password = db.Column(db.String(20),index=True,unique=True)
     def __repr__(self):
         return '<User %r>'%self.username
 
@@ -48,6 +49,10 @@ def login():
     if request.method =="POST":
         if request.form['username'] and request.form['password']:
             username = request.form['username']
+            password = request.form['password']
+            new_user = User_table(username=username,password=password)
+            db.session.add(new_user)
+            db.session.commit()
             return render_template("top_page.html",username=username,goods =goods)
         else:
             return render_template("error.html")
