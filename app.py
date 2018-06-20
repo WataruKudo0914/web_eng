@@ -26,6 +26,7 @@ class Goods_table(db.Model):
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
     description=db.Column(db.String(100))
+    filepath = db.Column(db.String(100))
     def __repr__(self):
         return '<User %r>'%self.username
 
@@ -65,18 +66,17 @@ def chat():
 @app.route("/complete_post_goods",methods=["POST"])
 def complete_post_goods():
     # なぜか画像のアップロードがうまくいかない。
-    # request.files['image']
-    if request.form['goods_name'] and request.form['rental_fee'] and request.form['description']:
+    if request.form['goods_name'] and request.form['rental_fee'] and request.form['description'] and request.files['image']:
         goods_name = request.form['goods_name']
         rental_fee = request.form['rental_fee']
         description = request.form['description']
-        # f = request.files['image']
-        # filepath = 'static/' + f.filename
-        # f.save(filepath)
-        new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description)
+        f = request.files['image']
+        filepath = 'static/' + f.filename
+        f.save(filepath)
+        new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description,filepath=filepath)
         db.session.add(new_goods)
         db.session.commit()
-        return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description)
+        return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description,filepath=filepath)
     else:
         return render_template("error.html")
 
