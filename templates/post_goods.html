@@ -5,17 +5,30 @@
 {% endblock %}
 
 {% block contents %}
-<h1>出品</h1>
-<form method="POST" action="/complete_post_goods" enctype="mulitpart/form-data">
-  <input placeholder="商品名" name="goods_name" type="text"/>
-  <input placeholder="レンタル料" name="rental_fee" type="text"/>
-  <textarea name="description" placeholder="説明文を書きましょう。"></textarea>
-  <input name="image" type="file"/>
-  <input value="送信" type="submit"/>
-</form>
+<header>
+  <h1>
+  サービス名
+</h1>
+</header>
+<section>
+  <h1>出品</h1>
+  <form method="POST" action="/complete_post_goods" enctype="mulitpart/form-data">
+    <label for="goods_name">商品名</label><br>
+    <input placeholder="商品名" name="goods_name" type="text" id="goods_name"/><br>
+    <label for="rental_fee">レンタル料</label><br>
+    <input placeholder="半角数字" name="rental_fee" type="text" id="rental_fee"/><br>
+    <label for="rental_fee">商品の説明をしましょう!</label><br>
+    <textarea name="description" placeholder="説明文を書きましょう。"></textarea><br>
+    <input name="image" type="file"/><br>
+    <input value="送信" type="submit"/>
+  </form>
 
 <p>
 商品の出品を行う</p>
+</section>
 
+{% endblock %}
+
+{% block footer %}
 <a href="#" onclick="history.back(); return false;">前に戻る</a>
 {% endblock %}

@@ -5,16 +5,22 @@
 {% endblock %}
 
 {% block contents %}
-<h1>ユーザー登録</h1>
-<form method="POST" action="/top_page",enctype="mulitpart/form-data">
-  <input placeholder="名前" name="username" type="text"/>
-  <input placeholder="パスワード" name="password" type="text"/>
-  <input value="送信" type="submit"/>
-</form>
+<header>
+  <h1>ユーザー登録</h1>
+</header>
+<section>
+  <form method="POST" action="/top_page",enctype="mulitpart/form-data">
+    <input placeholder="名前" name="username" type="text"/>
+    <input placeholder="パスワード" name="password" type="password"/>
+    <input value="送信" type="submit"/>
+  </form>
 
-<p>
-現時点ではしょぼいが、ここをユーザー登録の画面にする
-適当に入力すると入れます。</p>
-<a href="#" onclick="history.back(); return false;">前に戻る</a>
+  <p>
+  現時点ではしょぼいが、ここをユーザー登録の画面にする
+  適当に入力すると入れます。</p>
+</section>
 
+<footer>
+  <a href="#" onclick="history.back(); return false;">前に戻る</a>
+</footer>
 {% endblock %}
