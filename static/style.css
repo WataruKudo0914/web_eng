@@ -1,3 +1,8 @@
-h1{
-  color : red;
+.all_container{
+  width: 960px;
+  margin:auto;
+  text-align: center;
+  background: url("/static/C00283-001N.jpg");
+  background-size: 1200px 960px;
+  font-family: monospace sans-serif;
 }
