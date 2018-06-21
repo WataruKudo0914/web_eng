@@ -18,7 +18,7 @@ migrate = Migrate(app,db)
 class User_table(db.Model):
     id= db.Column(db.Integer,primary_key =True)
     username = db.Column(db.String(20),index=True,unique=True)
-    password = db.Column(db.String(20),index=True,unique=True)
+    password = db.Column(db.String(20),index=True)
     def __repr__(self):
         return '<User %r>'%self.username
 
