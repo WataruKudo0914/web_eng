@@ -27,7 +27,9 @@ class Goods_table(db.Model):
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
     description=db.Column(db.String(100))
-    filepath = db.Column(db.String(100))
+    filepath1 = db.Column(db.String(100))
+    filepath2 = db.Column(db.String(100))
+    filepath3 = db.Column(db.String(100))
     def __repr__(self):
         return '<User %r>'%self.username
 
@@ -70,18 +72,32 @@ def chat():
 
 @app.route("/complete_post_goods",methods=["POST"])
 def complete_post_goods():
-    # なぜか画像のアップロードがうまくいかない。
-    if request.form['goods_name'] and request.form['rental_fee'] and request.form['description'] and request.files['image']:
+    if request.form['goods_name'] and request.form['rental_fee'] and request.form['description'] and request.files['image1']:
         goods_name = request.form['goods_name']
         rental_fee = request.form['rental_fee']
         description = request.form['description']
-        f = request.files['image']
-        filepath = 'static/' + f.filename
-        f.save(filepath)
-        new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description,filepath=filepath)
+        f = request.files['image1']
+        filepath1 = 'static/' + f.filename
+        f.save(filepath1)
+        if request.files['image2']:
+            f = request.files['image2']
+            filepath2 = 'static/' + f.filename
+            f.save(filepath2)
+            if request.files['image3']:
+                f = request.files['image3']
+                filepath3 = 'static/' + f.filename
+                f.save(filepath3)
+            else:
+                filepath3=""
+        else:
+            filepath2=""
+            filepath3=""
+        new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description,
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
         db.session.add(new_goods)
         db.session.commit()
-        return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description,filepath=filepath)
+        return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description,
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
     else:
         return render_template("error.html")
 
@@ -99,5 +115,5 @@ def search_result():
 def initdb_command():
     db.create_all()
 
-# if __name__ == "__main__":
-    # app.run(debug=True, host="0.0.0.0")
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0")
