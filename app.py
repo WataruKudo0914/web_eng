@@ -1,10 +1,11 @@
-from flask import Flask, render_template,request, make_response ,session
+from flask import Flask, render_template,request, make_response ,session ,redirect, url_for
 from werkzeug.utils import secure_filename
 #posgresqlへアクセスするモジュール
 import psycopg2
 import psycopg2.extras
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager, login_user, UserMixin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/web_eng'
@@ -12,10 +13,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
+
 #データベースの構造を変えたら
 # flask db update　コマンドをうってマイグレートする。
 #userのdb
-class User_table(db.Model):
+class User_table(UserMixin,db.Model):
     id= db.Column(db.Integer,primary_key =True)
     username = db.Column(db.String(20),index=True,unique=True)
     password = db.Column(db.String(20),index=True)
@@ -43,6 +45,8 @@ def sign_up():
 
 @app.route("/sign_in")
 def sign_in():
+    user = User_table.query.get(id=request.form["id"])
+    login_user(user,True)
     return render_template("sign_in.html")
 
 @app.route("/top_page",methods=["POST","GET"])
