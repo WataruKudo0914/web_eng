@@ -47,7 +47,7 @@ def sign_up():
 def sign_in():
     user = User_table.query.get(id=request.form["id"])
     login_user(user,True)
-    return render_template("sign_in.html")
+    return redirect(url_for('top_page'))
 
 @app.route("/top_page",methods=["POST","GET"])
 def login():
