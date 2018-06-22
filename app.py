@@ -13,6 +13,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 
 #データベースの構造を変えたら
 # flask db update　コマンドをうってマイグレートする。
@@ -47,8 +50,23 @@ def sign_up():
 def sign_in():
     return render_template('sign_in.html')
 
-@app.route("/top_page",methods=["POST","GET"])
+@app.route("/login",methods=["POST"])
 def login():
+    goods = Goods_table.query.all()
+    if request.form["username"] and request.form["password"]:
+        posted_username = request.form["username"]
+        user_in_database = User_table.query.get(username=posted_username)
+        if request.form["password"] == user_in_database.password: # 入力されたpasswordが正しい場合
+            login_user(user_in_database,True)
+            return render_template('top_page.html',username=user_in_database.username,goods=goods)
+        else:
+            return render_template('error.html')
+    else:
+        return render_template("error.html")    
+        
+    
+@app.route("/top_page",methods=["POST","GET"])
+def top_page():
     goods = Goods_table.query.all()
     if request.method =="POST":
         if request.form['username'] and request.form['password']:
