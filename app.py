@@ -46,19 +46,31 @@ def index():
 def sign_up():
     return render_template('sign_up.html')
 
+@app.route("/register",method=["POST"])
+def register():
+    if request.form['username'] and request.form['password']:
+        username = request.form['username']
+        password = request.form['password']
+        new_user = User_table(username=username,password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user,True) # ユーザが新規登録されたときは，ログイン状態にする．
+        return redirect('/top_page')
+    else:
+        return render_template("error.html")
+
 @app.route("/sign_in")
 def sign_in():
     return render_template('sign_in.html')
 
 @app.route("/login",methods=["POST"])
 def login():
-    goods = Goods_table.query.all()
     if request.form["username"] and request.form["password"]:
         posted_username = request.form["username"]
         user_in_database = User_table.query.get(username=posted_username)
         if request.form["password"] == user_in_database.password: # 入力されたpasswordが正しい場合
             login_user(user_in_database,True)
-            return render_template('top_page.html',username=user_in_database.username,goods=goods)
+            return redirect('/top_page')
         else:
             return render_template('error.html')
     else:
@@ -66,8 +78,11 @@ def login():
         
     
 @app.route("/top_page",methods=["POST","GET"])
+@login_required
 def top_page():
+    username = 
     goods = Goods_table.query.all()
+    
     if request.method =="POST":
         if request.form['username'] and request.form['password']:
             username = request.form['username']
