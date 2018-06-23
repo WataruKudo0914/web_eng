@@ -78,24 +78,9 @@ def login():
         
     
 @app.route("/top_page",methods=["POST","GET"])
-@login_required
 def top_page():
-    username = 
     goods = Goods_table.query.all()
-    
-    if request.method =="POST":
-        if request.form['username'] and request.form['password']:
-            username = request.form['username']
-            password = request.form['password']
-            new_user = User_table(username=username,password=password)
-            db.session.add(new_user)
-            db.session.commit()
-            return render_template("top_page.html",username=username,goods =goods)
-        else:
-            return render_template("error.html")
-    elif request.method== "GET":
-        username = "ゲスト"
-        return render_template("top_page.html",username=username,goods=goods)
+    return render_template("top_page.html",goods=goods)
 
 @app.route("/post_goods")
 def post_goods():
