@@ -46,7 +46,7 @@ def index():
 def sign_up():
     return render_template('sign_up.html')
 
-@app.route("/register",method=["POST"])
+@app.route("/register",methods=["POST"])
 def register():
     if request.form['username'] and request.form['password']:
         username = request.form['username']
