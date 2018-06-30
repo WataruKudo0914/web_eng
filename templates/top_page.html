@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block contents %}
-{% if current_user.is_authenticated() %}
-    <h1>ログインされたユーザさんようこそ！</h1>
+{% if current_user.is_authenticated %}
+    <h1>{{ current_user.username }}さんようこそ！</h1>
     {% else %}
     <h1>ゲストさんようこそ！</h1>
     {% endif %}

@@ -10,12 +10,16 @@ from flask_login import LoginManager, login_user, UserMixin
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/web_eng'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'ufawifyagwer1742yncs2'
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+@login_manager.user_loader
+def load_user(id):
+    return User_table.query.get(id)
 
 #データベースの構造を変えたら
 # flask db update　コマンドをうってマイグレートする。
@@ -37,6 +41,9 @@ class Goods_table(db.Model):
     filepath3 = db.Column(db.String(100))
     def __repr__(self):
         return '<User %r>'%self.username
+
+
+
 
 @app.route('/')
 def index():
@@ -67,7 +74,7 @@ def sign_in():
 def login():
     if request.form["username"] and request.form["password"]:
         posted_username = request.form["username"]
-        user_in_database = User_table.query.get(username=posted_username)
+        user_in_database = User_table.query.filter_by(username=posted_username).first()
         if request.form["password"] == user_in_database.password: # 入力されたpasswordが正しい場合
             login_user(user_in_database,True)
             return redirect('/top_page')
