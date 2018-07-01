@@ -1,0 +1,28 @@
+{% extends "page_template.html" %}
+{% block title %}page top{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+
+{% block contents %}
+<h1>
+  商品の詳細
+</h1>
+{% for g in good %}
+<h2>商品名</h2>
+<p>{{g.goods_name}}</p>
+<h2>レンタル料</h2>
+<p>{{g.rental_fee}}</p>
+<h2>説明</h2>
+<p>{{g.description}}<p>
+<h2>画像</h2>
+<br>
+  <img src=/{{g.filepath1}} width=200px height=200px>
+<br>
+<form method="POST" action="/rental_done" enctype="multipart/form-data">
+<input value="レンタルする！" type="submit"/>
+<input type="hidden" name="goods_id" value={{g.id}}>
+</form>
+{% endfor %}
+
+{% endblock %}
