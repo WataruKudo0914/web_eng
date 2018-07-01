@@ -33,6 +33,7 @@ class User_table(UserMixin,db.Model):
 
 class Goods_table(db.Model):
     id = db.Column(db.Integer,primary_key=True)
+    # username = db.Column(db.String(20))
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
     description=db.Column(db.String(100))
@@ -42,7 +43,22 @@ class Goods_table(db.Model):
     def __repr__(self):
         return '<User %r>'%self.username
 
+class Deal_table(db.Model):
+    deal_id = db.Column(db.Integer,primary_key=True)
+    lender_id = db.Column(db.Integer,primary_key=False)
+    borrower_id = db.Column(db.Integer,primary_key=False)
+    price = db.Column(db.Integer,primary_key=False)
+    phase = db.Column(db.String(10))
+    # def __repr__(self):
+        # return '<User %r>'%self.username
 
+class Chat_table(db.Model):
+    chat_id = db.Column(db.Integer,primary_key=True)
+    deal_id = db.Column(db.Integer,primary_key=False)
+    speaker = db.Column(db.Integer,primary_key=False)
+    chat_contents = db.Column(db.String(100))
+    # def __repr__(self):
+        # return '<User %r>'%self.username
 
 
 @app.route('/')
@@ -81,9 +97,9 @@ def login():
         else:
             return render_template('error.html')
     else:
-        return render_template("error.html")    
-        
-    
+        return render_template("error.html")
+
+
 @app.route("/top_page",methods=["POST","GET"])
 def top_page():
     goods = Goods_table.query.all()
@@ -95,6 +111,7 @@ def post_goods():
 
 @app.route("/chat")
 def chat():
+
     return render_template("chat.html")
 
 @app.route("/complete_post_goods",methods=["POST"])
@@ -136,6 +153,16 @@ def search_result():
         return render_template("search_result.html",goods=goods)
     else:
         return render_template("error.html")
+
+@app.route("/goods_detail/<goods_id>")
+def goods_detail(goods_id):
+    good = Goods_table.query.filter(Goods_table.id==goods_id)
+    return render_template("goods_detail.html",good=good)
+
+@app.route("/rental_done", methods=["POST"])
+def rental_done():
+    goods_id = request.form['goods_id']
+    return render_template("rental_done.html")
 
 #テーブルの初期化のコマンド、これをしないとSQLAlchemyがdbにアクセスできない。
 @app.cli.command('initdb')
