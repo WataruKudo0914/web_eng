@@ -1,21 +1,30 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request, make_response ,session ,redirect, url_for
 from werkzeug.utils import secure_filename
 #posgresqlへアクセスするモジュール
 import psycopg2
 import psycopg2.extras
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager, login_user, UserMixin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/web_eng'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'ufawifyagwer1742yncs2'
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(id):
+    return User_table.query.get(id)
 
 #データベースの構造を変えたら
 # flask db update　コマンドをうってマイグレートする。
 #userのdb
-class User_table(db.Model):
+class User_table(UserMixin,db.Model):
     id= db.Column(db.Integer,primary_key =True)
     username = db.Column(db.String(20),index=True,unique=True)
     password = db.Column(db.String(20),index=True)
@@ -33,6 +42,9 @@ class Goods_table(db.Model):
     def __repr__(self):
         return '<User %r>'%self.username
 
+
+
+
 @app.route('/')
 def index():
     return render_template('home_page.html')
@@ -41,26 +53,41 @@ def index():
 def sign_up():
     return render_template('sign_up.html')
 
+@app.route("/register",methods=["POST"])
+def register():
+    if request.form['username'] and request.form['password']:
+        username = request.form['username']
+        password = request.form['password']
+        new_user = User_table(username=username,password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user,True) # ユーザが新規登録されたときは，ログイン状態にする．
+        return redirect('/top_page')
+    else:
+        return render_template("error.html")
+
 @app.route("/sign_in")
 def sign_in():
-    return render_template("sign_in.html")
+    return render_template('sign_in.html')
 
-@app.route("/top_page",methods=["POST","GET"])
+@app.route("/login",methods=["POST"])
 def login():
-    goods = Goods_table.query.all()
-    if request.method =="POST":
-        if request.form['username'] and request.form['password']:
-            username = request.form['username']
-            password = request.form['password']
-            new_user = User_table(username=username,password=password)
-            db.session.add(new_user)
-            db.session.commit()
-            return render_template("top_page.html",username=username,goods =goods)
+    if request.form["username"] and request.form["password"]:
+        posted_username = request.form["username"]
+        user_in_database = User_table.query.filter_by(username=posted_username).first()
+        if request.form["password"] == user_in_database.password: # 入力されたpasswordが正しい場合
+            login_user(user_in_database,True)
+            return redirect('/top_page')
         else:
-            return render_template("error.html")
-    elif request.method== "GET":
-        username = "ゲスト"
-        return render_template("top_page.html",username=username,goods=goods)
+            return render_template('error.html')
+    else:
+        return render_template("error.html")    
+        
+    
+@app.route("/top_page",methods=["POST","GET"])
+def top_page():
+    goods = Goods_table.query.all()
+    return render_template("top_page.html",goods=goods)
 
 @app.route("/post_goods")
 def post_goods():

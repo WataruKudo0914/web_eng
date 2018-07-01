@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block contents %}
-<h1>{{username}}さんようこそ！</h1>
+{% if current_user.is_authenticated %}
+    <h1>{{ current_user.username }}さんようこそ！</h1>
+    {% else %}
+    <h1>ゲストさんようこそ！</h1>
+    {% endif %}
 <h1>商品一覧</h1>
 {% for good in goods %}
 <tr>
