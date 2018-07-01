@@ -22,11 +22,11 @@ def load_user(id):
     return User_table.query.get(id)
 
 #データベースの構造を変えたら
-# flask db update　コマンドをうってマイグレートする。
+# flask db upgrade　コマンドをうってマイグレートする。
 #userのdb
 class User_table(UserMixin,db.Model):
     id= db.Column(db.Integer,primary_key =True)
-    username = db.Column(db.String(20),index=True,unique=True)
+    username = db.Column(db.String(60),index=True,unique=True)
     password = db.Column(db.String(20),index=True)
     def __repr__(self):
         return '<User %r>'%self.username

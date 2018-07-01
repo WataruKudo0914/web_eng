@@ -20,9 +20,15 @@
   <img src=/{{g.filepath1}} width=200px height=200px>
 <br>
 <form method="POST" action="/rental_done" enctype="multipart/form-data">
-<input value="レンタルする！" type="submit"/>
+<input value="レンタルする！" type="submit"/ onClick="disp()">
 <input type="hidden" name="goods_id" value={{g.id}}>
 </form>
 {% endfor %}
+
+<script>
+function disp(){
+  window.alert("レンタル完了です。\nただちに連絡を取ってください。")
+}
+</script>
 
 {% endblock %}
