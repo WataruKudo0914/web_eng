@@ -33,7 +33,7 @@ class User_table(UserMixin,db.Model):
 
 class Goods_table(db.Model):
     goods_id = db.Column(db.Integer,primary_key=True)
-    username = db.Column(db.String(20))
+    username = db.Column(db.String(60))
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
     description=db.Column(db.String(100))
@@ -62,7 +62,7 @@ class Chat_table(db.Model):
         # return '<User %r>'%self.username
 
 
-@app.route('/',methods=["POST"])
+@app.route('/',methods=["POST","GET"])
 def index():
     return render_template('home_page.html')
 
@@ -114,7 +114,7 @@ def top_page():
 @app.route("/post_goods")
 def post_goods():
     return render_template("post_goods.html")
-
+    
 @app.route("/chat")
 def chat():
 
@@ -142,12 +142,13 @@ def complete_post_goods():
         else:
             filepath2=""
             filepath3=""
+        username = request.form['username']
         new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description,
-                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3,username=username)
         db.session.add(new_goods)
         db.session.commit()
         return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description,
-                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3,username=username)
     else:
         return render_template("error.html")
 
