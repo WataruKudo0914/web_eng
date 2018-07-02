@@ -32,14 +32,15 @@ class User_table(UserMixin,db.Model):
         return '<User %r>'%self.username
 
 class Goods_table(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
-    # username = db.Column(db.String(20))
+    goods_id = db.Column(db.Integer,primary_key=True)
+    username = db.Column(db.String(20))
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
     description=db.Column(db.String(100))
     filepath1 = db.Column(db.String(100))
     filepath2 = db.Column(db.String(100))
     filepath3 = db.Column(db.String(100))
+    goods_phase = db.Column(db.String(10)) # 商品がレンタル中かどうか．
     def __repr__(self):
         return '<User %r>'%self.username
 
@@ -156,7 +157,7 @@ def search_result():
 
 @app.route("/goods_detail/<goods_id>")
 def goods_detail(goods_id):
-    good = Goods_table.query.filter(Goods_table.id==goods_id)
+    good = Goods_table.query.filter(Goods_table.goods_id==goods_id)
     return render_template("goods_detail.html",good=good)
 
 @app.route("/rental_done", methods=["POST"])

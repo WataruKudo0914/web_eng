@@ -13,12 +13,12 @@
 <h1>商品一覧</h1>
 {% for good in goods %}
 <tr>
-  <td>{{good.id}}</td>
+  <td>{{good.goods_id}}</td>
   <td>{{good.goods_name}}</td>
   <td>{{good.rental_fee}}</td>
   <td>{{good.description}}</td>
 
-  <td><a href="/goods_detail/{{good.id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
+  <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
   <br>
 </tr>
 {% endfor %}
