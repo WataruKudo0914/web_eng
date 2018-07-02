@@ -19,6 +19,7 @@
 <h1>商品一覧</h1>
 {% for good in goods %}
 <tr>
+  <td>{{good.username}}</td>
   <td>{{good.goods_id}}</td>
   <td>{{good.goods_name}}</td>
   <td>{{good.rental_fee}}</td>
@@ -33,17 +34,17 @@
 
 <h1>出品</h1>
   {% if current_user.is_authenticated %}
-    <a href="/post_goods">こちらから出品</a>  
+  <h1><a href="/post_goods">こちらから出品</a></h1>
   {% else %}
-    <a href="/">こちらから出品</a>
+  <h1><a href="/">こちらから出品</a></h1>
   {% endif %}
 
-<h1>チャット</h1>
-  {% if current_user.is_authenticated %}
-    <a href="/chat">チャットスペースへ</a>
-  {% else %}
-    <a href="/">チャットスペースへ</a>
-  {% endif %}
+  <h1>チャット</h1>
+    {% if current_user.is_authenticated %}
+    <h1><a href="/chat">チャット</a></h1>
+    {% else %}
+    <h1><a href="/">チャット</a></h1>
+    {% endif %}
 
   {% if current_user.is_authenticated %}
       <h1><form method="POST" action="/logout" enctype="multipart/form-data">
@@ -54,4 +55,5 @@
         <input type="submit" value="log in/sign up">
       </form></h1>
       {% endif %}
+
 {% endblock %}

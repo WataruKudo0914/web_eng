@@ -103,7 +103,8 @@ def login():
 @app.route("/logout", methods=["POST"])
 def logout():
     logout_user()
-    return render_template("top_page.html")
+    goods = Goods_table.query.all()
+    return render_template("top_page.html",goods=goods)
 
 
 @app.route("/top_page",methods=["POST","GET"])
@@ -114,7 +115,7 @@ def top_page():
 @app.route("/post_goods")
 def post_goods():
     return render_template("post_goods.html")
-    
+
 @app.route("/chat")
 def chat():
 
@@ -131,7 +132,7 @@ def complete_post_goods():
         f.save(filepath1)
         if request.files['image2']:
             f = request.files['image2']
-            filepath2 = 'static/' + f.filename
+            filepath2 = 'static/'+ f.filename
             f.save(filepath2)
             if request.files['image3']:
                 f = request.files['image3']
