@@ -10,31 +10,50 @@
     {% else %}
     <h1>ゲストさんようこそ！</h1>
     {% endif %}
+
+<h1>検索窓</h1>
+<form method="POST" action="/search_result" enctype="multipart/form-data">
+  <label>検索</label><br>
+  <input placeholder="商品名" name="search_name" type="text"/><br>
+</form>
 <h1>商品一覧</h1>
 {% for good in goods %}
 <tr>
-  <td>{{good.id}}</td>
+  <td>{{good.username}}</td>
+  <td>{{good.goods_id}}</td>
   <td>{{good.goods_name}}</td>
   <td>{{good.rental_fee}}</td>
   <td>{{good.description}}</td>
 
-  <td><a href="/goods_detail/{{good.id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
+  <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
   <br>
 </tr>
 {% endfor %}
 
 <p>ここに写真やらたくさん乗っけて、写真をクリックすると詳細を見れるようにする。</p>
-<h1>必要な機能①
-  検索窓</h1>
-<form method="POST" action="/search_result" enctype="multipart/form-data">
-  <label>検索</label><br>
-  <input placeholder="商品名" name="search_name" type="text"/><br>
-</form>
 
-<h1>必要な機能②
-  出品できること</h1>
-  <a href="/post_goods">こちらから出品</a>
-<h1>必要な機能③
-  チャットスペースを作ること</h1>
-  <a href="/chat">チャットスペースへ</a>
+<h1>出品</h1>
+  {% if current_user.is_authenticated %}
+  <h1><a href="/post_goods">こちらから出品</a></h1>
+  {% else %}
+  <h1><a href="/">こちらから出品</a></h1>
+  {% endif %}
+
+  <h1>チャット</h1>
+    {% if current_user.is_authenticated %}
+    <h1><a href="/chat">チャット</a></h1>
+    {% else %}
+    <h1><a href="/">チャット</a></h1>
+    {% endif %}
+
+  {% if current_user.is_authenticated %}
+      <h1><form method="POST" action="/logout" enctype="multipart/form-data">
+        <input type="submit" value="logout">
+      </form></h1>
+      {% else %}
+      <h1><form method="POST" action="/" enctype="multipart/form-data">
+        <input type="submit" value="log in/sign up">
+      </form></h1>
+      {% endif %}
+
 {% endblock %}

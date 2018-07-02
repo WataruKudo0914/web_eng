@@ -5,7 +5,7 @@ import psycopg2
 import psycopg2.extras
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, login_user, UserMixin
+from flask_login import LoginManager, login_user, UserMixin,logout_user
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/web_eng'
@@ -22,24 +22,25 @@ def load_user(id):
     return User_table.query.get(id)
 
 #データベースの構造を変えたら
-# flask db update　コマンドをうってマイグレートする。
+# flask db upgrade　コマンドをうってマイグレートする。
 #userのdb
 class User_table(UserMixin,db.Model):
     id= db.Column(db.Integer,primary_key =True)
-    username = db.Column(db.String(20),index=True,unique=True)
+    username = db.Column(db.String(60),index=True,unique=True)
     password = db.Column(db.String(20),index=True)
     def __repr__(self):
         return '<User %r>'%self.username
 
 class Goods_table(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
-    # username = db.Column(db.String(20))
+    goods_id = db.Column(db.Integer,primary_key=True)
+    username = db.Column(db.String(60))
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
     description=db.Column(db.String(100))
     filepath1 = db.Column(db.String(100))
     filepath2 = db.Column(db.String(100))
     filepath3 = db.Column(db.String(100))
+    goods_phase = db.Column(db.String(10)) # 商品がレンタル中かどうか．
     def __repr__(self):
         return '<User %r>'%self.username
 
@@ -61,7 +62,7 @@ class Chat_table(db.Model):
         # return '<User %r>'%self.username
 
 
-@app.route('/')
+@app.route('/',methods=["POST","GET"])
 def index():
     return render_template('home_page.html')
 
@@ -99,6 +100,12 @@ def login():
     else:
         return render_template("error.html")
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    logout_user()
+    goods = Goods_table.query.all()
+    return render_template("top_page.html",goods=goods)
+
 
 @app.route("/top_page",methods=["POST","GET"])
 def top_page():
@@ -125,7 +132,7 @@ def complete_post_goods():
         f.save(filepath1)
         if request.files['image2']:
             f = request.files['image2']
-            filepath2 = 'static/' + f.filename
+            filepath2 = 'static/'+ f.filename
             f.save(filepath2)
             if request.files['image3']:
                 f = request.files['image3']
@@ -136,12 +143,13 @@ def complete_post_goods():
         else:
             filepath2=""
             filepath3=""
+        username = request.form['username']
         new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description,
-                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3,username=username)
         db.session.add(new_goods)
         db.session.commit()
         return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description,
-                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3,username=username)
     else:
         return render_template("error.html")
 
@@ -156,7 +164,7 @@ def search_result():
 
 @app.route("/goods_detail/<goods_id>")
 def goods_detail(goods_id):
-    good = Goods_table.query.filter(Goods_table.id==goods_id)
+    good = Goods_table.query.filter(Goods_table.goods_id==goods_id)
     return render_template("goods_detail.html",good=good)
 
 @app.route("/rental_done", methods=["POST"])
