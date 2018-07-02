@@ -5,7 +5,7 @@ import psycopg2
 import psycopg2.extras
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, login_user, UserMixin
+from flask_login import LoginManager, login_user, UserMixin,logout_user
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/web_eng'
@@ -62,7 +62,7 @@ class Chat_table(db.Model):
         # return '<User %r>'%self.username
 
 
-@app.route('/')
+@app.route('/',methods=["POST"])
 def index():
     return render_template('home_page.html')
 
@@ -99,6 +99,11 @@ def login():
             return render_template('error.html')
     else:
         return render_template("error.html")
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    logout_user()
+    return render_template("top_page.html")
 
 
 @app.route("/top_page",methods=["POST","GET"])

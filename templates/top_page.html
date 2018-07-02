@@ -10,6 +10,12 @@
     {% else %}
     <h1>ゲストさんようこそ！</h1>
     {% endif %}
+
+<h1>検索窓</h1>
+<form method="POST" action="/search_result" enctype="multipart/form-data">
+  <label>検索</label><br>
+  <input placeholder="商品名" name="search_name" type="text"/><br>
+</form>
 <h1>商品一覧</h1>
 {% for good in goods %}
 <tr>
@@ -24,12 +30,6 @@
 {% endfor %}
 
 <p>ここに写真やらたくさん乗っけて、写真をクリックすると詳細を見れるようにする。</p>
-<h1>必要な機能①
-  検索窓</h1>
-<form method="POST" action="/search_result" enctype="multipart/form-data">
-  <label>検索</label><br>
-  <input placeholder="商品名" name="search_name" type="text"/><br>
-</form>
 
 <h1>必要な機能②
   出品できること</h1>
@@ -37,4 +37,14 @@
 <h1>必要な機能③
   チャットスペースを作ること</h1>
   <a href="/chat">チャットスペースへ</a>
+
+  {% if current_user.is_authenticated %}
+      <h1><form method="POST" action="/logout" enctype="multipart/form-data">
+        <input type="submit" value="logout">
+      </form></h1>
+      {% else %}
+      <h1><form method="POST" action="/" enctype="multipart/form-data">
+        <input type="submit" value="log in/sign up">
+      </form></h1>
+      {% endif %}
 {% endblock %}
