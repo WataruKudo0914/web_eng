@@ -130,7 +130,13 @@ def chat(id):
 @app.route("/chat/detail/<int:deal_id>")
 def chat_detail(deal_id):
     chat=Chat_table.query.filter(Chat_table.deal_id==deal_id).all()
-    return render_template("chat_detail.html",chat=chat,deal_id=deal_id)
+    chat_list=[]
+    for num in range(len(chat)):
+        chat_dic={}
+        chat_dic["speaker"]=User_table.query.filter(User_table.id==chat[num].speaker).first().username
+        chat_dic["chat_contents"]=chat[num].chat_contents
+        chat_list.append(chat_dic)
+    return render_template("chat_detail.html",chat_list=chat_list,deal_id=deal_id)
 
 @app.route("/chat_result",methods=["POST"])
 def chat_result():
