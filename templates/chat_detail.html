@@ -6,19 +6,22 @@
 
 {% block contents %}
 <!-- チャットを見るところ -->
-{% for chat_content in chat_list %}
-<h1>話者{{chat_content.speaker}}</h1>
-<h1>内容{{chat_content.chat_contents}}<h1>
-{% endfor %}
+<section id=chat_contents>
+  {% for chat_content in chat_list %}
+  <h1>話者{{chat_content.speaker}}</h1>
+  <h1>内容{{chat_content.chat_contents}}<h1>
+  {% endfor %}
+</section>
 
 <!-- チャットの投稿画面 -->
-<h1>チャットの投稿</h1>
-<form method="POST" action="/chat_result" enctype="multipart/form-data">
-  <label>投稿</label><br>
-  <input placeholder="チャットをしましょう" name="one_chat" type="text"/><br>
-  <input type="submit" value="送信"> 
-  <input type="hidden" name=speaker value={{current_user.id}}>
-  <input type="hidden" name=deal_id value={{deal_id}}>
-</form>
-
+<section id=post_chat>
+  <h1>チャットの投稿</h1>
+  <form method="POST" action="/chat_result" enctype="multipart/form-data">
+    <label>投稿</label><br>
+    <input placeholder="チャットをしましょう" name="one_chat" type="text"/><br>
+    <input type="submit" value="送信">
+    <input type="hidden" name=speaker value={{current_user.id}}>
+    <input type="hidden" name=deal_id value={{deal_id}}>
+  </form>
+</section>
 {% endblock %}

@@ -5,30 +5,30 @@
 {% endblock %}
 
 {% block contents %}
-<h1>
-  商品の詳細
-</h1>
-{% for g in good %}
-<h2>出品者</h2>
-<p>{{g.username}}
-<h2>商品名</h2>
-<p>{{g.goods_name}}</p>
-<h2>レンタル料</h2>
-<p>{{g.rental_fee}}</p>
-<h2>説明</h2>
-<p>{{g.description}}<p>
-<h2>画像</h2>
-<br>
-  <img src=/{{g.filepath1}} width=200px height=200px>
-<br>
-<form method="POST" action="/rental_done" enctype="multipart/form-data">
-<input value="レンタルする！" type="submit"/ onClick="disp()">
-<input type="hidden" name="goods_id" value={{g.goods_id}}>
-<input type="hidden" name="lender_id" value={{g.id}} >
-<input type="hidden" name="borrower_id" value={{current_user.id}} >
-<input type="hidden" name="price" value={{g.rental_fee}}>
-</form>
-{% endfor %}
+<section id=goods_detail>
+  <h1>商品の詳細</h1>
+  {% for g in good %}
+  <h2>出品者</h2>
+  <p>{{g.username}}</p>
+  <h2>商品名</h2>
+  <p>{{g.goods_name}}</p>
+  <h2>レンタル料</h2>
+  <p>{{g.rental_fee}}</p>
+  <h2>説明</h2>
+  <p>{{g.description}}<p>
+  <h2>画像</h2>
+  <br>
+    <img src=/{{g.filepath1}} width=200px height=200px>
+  <br>
+  <form method="POST" action="/rental_done" enctype="multipart/form-data">
+  <input value="レンタルする！" type="submit"/ onClick="disp()">
+  <input type="hidden" name="goods_id" value={{g.goods_id}}>
+  <input type="hidden" name="lender_id" value={{g.id}} >
+  <input type="hidden" name="borrower_id" value={{current_user.id}} >
+  <input type="hidden" name="price" value={{g.rental_fee}}>
+  </form>
+  {% endfor %}
+</section>
 
 <script>
 function disp(){

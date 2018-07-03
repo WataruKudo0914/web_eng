@@ -6,17 +6,19 @@
 
 {% block contents %}
 <header>
+  <h1>サービス名</h1>
   {% if current_user.is_authenticated %}
-  <h1>{{ current_user.username }}さんようこそ！</h1>
+  <p>{{current_user.username}}さんようこそ</p>
   {% else %}
-  <h1>ゲストさんようこそ！</h1>
+  <p>ゲストさんようこそ</p>
   {% endif %}
+
 </header>
 
 <section id=search_engine>
-  <h1>検索窓</h1>
+  <h1>検索</h1>
+  <p>お好みの商品を探してください</p>
   <form method="POST" action="/search_result" enctype="multipart/form-data">
-    <label>検索</label><br>
     <input placeholder="商品名" name="search_name" type="text"/><br>
   </form>
 </section>
@@ -25,13 +27,13 @@
   <h1>商品一覧</h1>
   {% for good in goods %}
   <tr>
-    <td>出品者</td><br>
+    <td>出品者: </td>
     <td>{{good.username}}</td><br>
-    <td>商品名</td><br>
+    <td>商品名: </td>
     <td>{{good.goods_name}}</td><br>
-    <td>レンタル料</td><br>
+    <td>レンタル料: </td>
     <td>{{good.rental_fee}}</td><br>
-    <td>商品の説明</td><br>
+    <td>商品の説明: </td>
     <td>{{good.description}}</td><br>
     <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
     <br>
@@ -67,6 +69,16 @@
       <input type="submit" value="log in/sign up">
       </form>
   {% endif %}
+
+</section>
+
+<section id=mypage>
+{% if current_user.is_authenticated %}
+    <form method="POST" action="/mypage" enctype="multipart/form-data">
+      <input type="submit" value="mypage">
+      <input type="hidden" name="id" value="{{current_user.id}}">
+    </form>
+{% endif %}
 </section>
 
 {% endblock %}
