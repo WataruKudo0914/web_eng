@@ -4,9 +4,10 @@
 {{super()}}
 {% endblock %}
 
-{% block contents %}
-<h1>ホーム画面</h1>
-<p>ここをhome_pageとして、サービスの概要やらを紹介し、sign in or sign up ページに飛べるようにする</p>
-<h3><a href="/sign_up">sign up</a></h3>
-<h3><a href="/sign_in">sign in</a></h3>
-{% endblock %}
+<section id=register>
+  {% block contents %}
+  <h1>sign in OR sign up</h1>
+  <h3><a href="/sign_up">sign up</a></h3>
+  <h3><a href="/sign_in">sign in</a></h3>
+  {% endblock %}
+</section>

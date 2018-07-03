@@ -209,6 +209,13 @@ def rental_done():
     db.session.commit()
     return render_template("rental_done.html")
 
+@app.route("/mypage",methods=["POST"])
+def mypage():
+    id = request.form["id"]
+    user_information = User_table.query.filter(User_table.id==id).first()
+    return render_template("mypage.html",user_information=user_information)
+
+
 
 #テーブルの初期化のコマンド、これをしないとSQLAlchemyがdbにアクセスできない。
 @app.cli.command('initdb')

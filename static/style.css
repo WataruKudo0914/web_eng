@@ -2,4 +2,8 @@
   background: url("/static/C00283-001N.jpg");
   background-size: 1200px 960px;
   font-family: monospace sans-serif;
+  width: 960px;
+  margin:auto;
+  text-align: center;
+}
 }
