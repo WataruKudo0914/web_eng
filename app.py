@@ -33,6 +33,7 @@ class User_table(UserMixin,db.Model):
 
 class Goods_table(db.Model):
     goods_id = db.Column(db.Integer,primary_key=True)
+    id = db.Column(db.Integer,primary_key=False)
     username = db.Column(db.String(60))
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
@@ -46,6 +47,7 @@ class Goods_table(db.Model):
 
 class Deal_table(db.Model):
     deal_id = db.Column(db.Integer,primary_key=True)
+    goods_id = db.Column(db.Integer,primary_key=False)
     lender_id = db.Column(db.Integer,primary_key=False)
     borrower_id = db.Column(db.Integer,primary_key=False)
     price = db.Column(db.Integer,primary_key=False)
@@ -116,10 +118,30 @@ def top_page():
 def post_goods():
     return render_template("post_goods.html")
 
-@app.route("/chat")
-def chat():
+@app.route("/chat/<int:id>")
+def chat(id):
+    lend_deal = Deal_table.query.filter(Deal_table.lender_id==id).all()
+    # [Deal_table1,Deal_table2]のようにリスト型で帰って来る
+    borrow_deal = Deal_table.query.filter(Deal_table.borrower_id==id).all()
+    # for deal_num in range(len(lend_deal)):
+        # goods_id=lend_deal[deal_num].goods_id
+    return render_template("chat.html",lend_deal=lend_deal,borrow_deal=borrow_deal)
 
-    return render_template("chat.html")
+@app.route("/chat/detail/<int:deal_id>")
+def chat_detail(deal_id):
+    chat=Chat_table.query.filter(Chat_table.deal_id==deal_id).all()
+    return render_template("chat_detail.html",chat=chat,deal_id=deal_id)
+
+@app.route("/chat_result",methods=["POST"])
+def chat_result():
+    deal_id = request.form["deal_id"]
+    chat_contents=request.form["one_chat"]
+    speaker = request.form["speaker"]
+    new_chat = Chat_table(deal_id=deal_id,speaker=speaker,chat_contents=chat_contents)
+    db.session.add(new_chat)
+    db.session.commit()
+    return render_template("chat_result.html",deal_id=deal_id)
+
 
 @app.route("/complete_post_goods",methods=["POST"])
 def complete_post_goods():
@@ -144,7 +166,8 @@ def complete_post_goods():
             filepath2=""
             filepath3=""
         username = request.form['username']
-        new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description,
+        id = request.form['id']
+        new_goods = Goods_table(id=id,goods_name=goods_name,rental_fee=rental_fee,description=description,
                                 filepath1=filepath1,filepath2=filepath2,filepath3=filepath3,username=username)
         db.session.add(new_goods)
         db.session.commit()
@@ -162,7 +185,7 @@ def search_result():
     else:
         return render_template("error.html")
 
-@app.route("/goods_detail/<goods_id>")
+@app.route("/goods_detail/<int:goods_id>")
 def goods_detail(goods_id):
     good = Goods_table.query.filter(Goods_table.goods_id==goods_id)
     return render_template("goods_detail.html",good=good)
@@ -170,7 +193,16 @@ def goods_detail(goods_id):
 @app.route("/rental_done", methods=["POST"])
 def rental_done():
     goods_id = request.form['goods_id']
+    lender_id = request.form["lender_id"]
+    borrower_id = request.form["borrower_id"]
+    price = request.form["price"]
+    phase ="レンタル開始"
+    new_deal = Deal_table(goods_id=goods_id,lender_id=lender_id,borrower_id=borrower_id,
+    price=price,phase=phase)
+    db.session.add(new_deal)
+    db.session.commit()
     return render_template("rental_done.html")
+
 
 #テーブルの初期化のコマンド、これをしないとSQLAlchemyがdbにアクセスできない。
 @app.cli.command('initdb')

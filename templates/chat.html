@@ -8,5 +8,20 @@
 {% block contents %}
 <h1>チャット画面</h1>
 <p>あなたがやりとり中の商品が表示されます。</p>
+<h2>貸している取引</h2>
+{% for deal in lend_deal %}
+<h3><a href="/chat/detail/{{deal.deal_id}}">貸している商品
+  {{deal.goods_id}}</a></h3>
+<h3>誰に貸しているか
+  ユーザーid{{deal.borrower_id}}</h3>
+{% endfor %}
+
+<h2>借りている取引</h2>
+{% for deal in borrow_deal %}
+<h3><a href="/chat/detail/{{deal.deal_id}}">借りている商品
+  {{deal.goods_id}}</a></h3>
+<h3>誰から借りているか
+  ユーザーid {{deal.lender_id}}</h3>
+{% endfor %}
 <a href="#" onclick="history.back(); return false;">前に戻る</a>
 {% endblock %}
