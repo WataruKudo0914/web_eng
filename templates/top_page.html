@@ -5,55 +5,68 @@
 {% endblock %}
 
 {% block contents %}
-{% if current_user.is_authenticated %}
-    <h1>{{ current_user.username }}さんようこそ！</h1>
-    {% else %}
-    <h1>ゲストさんようこそ！</h1>
-    {% endif %}
+<header>
+  {% if current_user.is_authenticated %}
+  <h1>{{ current_user.username }}さんようこそ！</h1>
+  {% else %}
+  <h1>ゲストさんようこそ！</h1>
+  {% endif %}
+</header>
 
-<h1>検索窓</h1>
-<form method="POST" action="/search_result" enctype="multipart/form-data">
-  <label>検索</label><br>
-  <input placeholder="商品名" name="search_name" type="text"/><br>
-</form>
-<h1>商品一覧</h1>
-{% for good in goods %}
-<tr>
-  <td>{{good.username}}</td>
-  <td>{{good.goods_id}}</td>
-  <td>{{good.goods_name}}</td>
-  <td>{{good.rental_fee}}</td>
-  <td>{{good.description}}</td>
+<section id=search_engine>
+  <h1>検索窓</h1>
+  <form method="POST" action="/search_result" enctype="multipart/form-data">
+    <label>検索</label><br>
+    <input placeholder="商品名" name="search_name" type="text"/><br>
+  </form>
+</section>
 
-  <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
-  <br>
-</tr>
-{% endfor %}
+<section id=various_goods>
+  <h1>商品一覧</h1>
+  {% for good in goods %}
+  <tr>
+    <td>出品者</td><br>
+    <td>{{good.username}}</td><br>
+    <td>商品名</td><br>
+    <td>{{good.goods_name}}</td><br>
+    <td>レンタル料</td><br>
+    <td>{{good.rental_fee}}</td><br>
+    <td>商品の説明</td><br>
+    <td>{{good.description}}</td><br>
+    <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
+    <br>
+  </tr>
+  {% endfor %}
+</section>
 
-<p>ここに写真やらたくさん乗っけて、写真をクリックすると詳細を見れるようにする。</p>
-
-<h1>出品</h1>
+<section id="post_goods">
+  <h1>出品</h1>
   {% if current_user.is_authenticated %}
   <h1><a href="/post_goods">こちらから出品</a></h1>
   {% else %}
   <h1><a href="/">こちらから出品</a></h1>
   {% endif %}
+</section>
 
+<section id=chat>
   <h1>チャット</h1>
-    {% if current_user.is_authenticated %}
-    <h1><a href="/chat/{{current_user.id}}">チャット</a></h1>
-    {% else %}
-    <h1><a href="/">チャット</a></h1>
-    {% endif %}
-
   {% if current_user.is_authenticated %}
-      <h1><form method="POST" action="/logout" enctype="multipart/form-data">
-        <input type="submit" value="logout">
-      </form></h1>
-      {% else %}
-      <h1><form method="POST" action="/" enctype="multipart/form-data">
-        <input type="submit" value="log in/sign up">
-      </form></h1>
-      {% endif %}
+    <h1><a href="/chat/{{current_user.id}}">チャット</a></h1>
+  {% else %}
+    <h1><a href="/">チャット</a></h1>
+  {% endif %}
+</section>
+
+<section id=sign>
+  {% if current_user.is_authenticated %}
+      <form method="POST" action="/logout" enctype="multipart/form-data">
+      <input type="submit" value="logout">
+      </form>
+  {% else %}
+      <form method="POST" action="/" enctype="multipart/form-data">
+      <input type="submit" value="log in/sign up">
+      </form>
+  {% endif %}
+</section>
 
 {% endblock %}
