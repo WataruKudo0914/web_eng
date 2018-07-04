@@ -6,7 +6,7 @@
 
 {% block contents %}
 <!-- チャットを見るところ -->
-<section id=chat_contents>
+<section class=chat_contents>
   {% for chat_content in chat_list %}
   <h1>話者{{chat_content.speaker}}</h1>
   <h1>内容{{chat_content.chat_contents}}<h1>
@@ -14,7 +14,7 @@
 </section>
 
 <!-- チャットの投稿画面 -->
-<section id=post_chat>
+<section class=post_chat>
   <h1>チャットの投稿</h1>
   <form method="POST" action="/chat_result" enctype="multipart/form-data">
     <label>投稿</label><br>

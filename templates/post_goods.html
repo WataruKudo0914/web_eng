@@ -6,47 +6,45 @@
 {% endblock %}
 
 {% block contents %}
-<header>
-  <h1>
-  サービス名
-</h1>
-</header>
-<section id=post_goods>
-  <h1>出品</h1>
-  <form method="POST" action="/complete_post_goods" enctype="multipart/form-data">
-    <label for="goods_name">商品名</label><br>
-    <input placeholder="商品名" name="goods_name" type="text" id="goods_name"/><br>
-    <label for="rental_fee">レンタル料</label><br>
-    <input placeholder="半角数字" name="rental_fee" type="text" id="rental_fee"/><br>
-    <label for="rental_fee">商品の説明をしましょう!</label><br>
-    <textarea name="description" placeholder="説明文を書きましょう。"></textarea><br>
-    <p>画像のアップロード(最大3つまで)</p>
-    <label for="upload_picture1">画像1</label>
-    <input name="image1" type="file" id="upload_picture1"/><br>
-    <label for="upload_picture2">画像2</label>
-    <input name="image2" type="file" id="upload_picture2"/><br>
-    <label for="upload_picture3">画像3</label>
-    <input name="image3" type="file" id="upload_picture3"/><br>
-    <input type="hidden" name="username" value={{current_user.username}}>
-    <input type="hidden" name="id" value={{current_user.id}}>
-    <br>
-    <section class="condition">
-      <h4>利用規約</h4>
-          <p>ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
-          ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
-          ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
-          ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
-          ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
-          ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
-          ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
-          ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。</p>
-          <label for"consent_yes">以上の規約に同意しますか？</label>
-          <input type="checkbox" id="consent_yes">
-    </section>
-    <input value="送信" type="submit"/>
-  </form>
- <p>商品の出品を行う</p>
-</section>
+  <header>
+    サービス名
+  </header>
+  <section id=post_goods>
+    <h1>出品</h1>
+    <form method="POST" action="/complete_post_goods" enctype="multipart/form-data">
+      <label for="goods_name">商品名</label><br>
+      <input placeholder="商品名" name="goods_name" type="text" id="goods_name"/><br>
+      <label for="rental_fee">レンタル料</label><br>
+      <input placeholder="半角数字" name="rental_fee" type="text" id="rental_fee"/><br>
+      <label for="rental_fee">商品の説明をしましょう!</label><br>
+      <textarea name="description" placeholder="説明文を書きましょう。"></textarea><br>
+      <p>画像のアップロード(最大3つまで)</p>
+      <label for="upload_picture1">画像1</label>
+      <input name="image1" type="file" id="upload_picture1"/><br>
+      <label for="upload_picture2">画像2</label>
+      <input name="image2" type="file" id="upload_picture2"/><br>
+      <label for="upload_picture3">画像3</label>
+      <input name="image3" type="file" id="upload_picture3"/><br>
+      <input type="hidden" name="username" value={{current_user.username}}>
+      <input type="hidden" name="id" value={{current_user.id}}>
+      <br>
+      <section class="condition">
+        <h4>利用規約</h4>
+            <p>ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
+            ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
+            ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
+            ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
+            ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
+            ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
+            ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。
+            ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。ここに利用規約をつらつら書く。</p>
+            <label for"consent_yes">以上の規約に同意しますか？</label>
+            <input type="checkbox" id="consent_yes">
+      </section>
+      <input value="送信" type="submit"/>
+    </form>
+   <p>商品の出品を行う</p>
+  </section>
 
 {% endblock %}
 
