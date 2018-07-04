@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, UserMixin,logout_user
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/web_eng'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'ufawifyagwer1742yncs2'
