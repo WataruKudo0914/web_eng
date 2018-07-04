@@ -1,0 +1,14 @@
+{% extends "page_template.html" %}
+{% block title %}レンタル完了{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+
+<section id=complete_rental>
+下記の内容でレンタルが完了しました。
+  {{good}}
+</section>
+
+{% block footer %}
+  <a href="/top_page">TOPへ</a>
+{% endblock %}

@@ -1,41 +1,71 @@
-# -*- encoding: utf-8 -*-
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request, make_response ,session ,redirect, url_for
 from werkzeug.utils import secure_filename
 #posgresqlへアクセスするモジュール
 import psycopg2
 import psycopg2.extras
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager, login_user, UserMixin,logout_user
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/web_eng'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'ufawifyagwer1742yncs2'
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(id):
+    return User_table.query.get(id)
+
 #データベースの構造を変えたら
-# flask db update　コマンドをうってマイグレートする。
+# flask db upgrade　コマンドをうってマイグレートする。
 #userのdb
-class User_table(db.Model):
+class User_table(UserMixin,db.Model):
     id= db.Column(db.Integer,primary_key =True)
-    username = db.Column(db.String(20),index=True,unique=True)
+    username = db.Column(db.String(60),index=True,unique=True)
     password = db.Column(db.String(20),index=True)
     def __repr__(self):
         return '<User %r>'%self.username
 
 class Goods_table(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
+    goods_id = db.Column(db.Integer,primary_key=True)
+    id = db.Column(db.Integer,primary_key=False)
+    username = db.Column(db.String(60))
     goods_name=db.Column(db.String(40))
     rental_fee=db.Column(db.Integer)
     description=db.Column(db.String(100))
     filepath1 = db.Column(db.String(100))
     filepath2 = db.Column(db.String(100))
     filepath3 = db.Column(db.String(100))
+    goods_phase = db.Column(db.String(10)) # 商品がレンタル中かどうか．
     def __repr__(self):
         return '<User %r>'%self.username
 
-@app.route('/')
+class Deal_table(db.Model):
+    deal_id = db.Column(db.Integer,primary_key=True)
+    goods_id = db.Column(db.Integer,primary_key=False)
+    lender_id = db.Column(db.Integer,primary_key=False)
+    borrower_id = db.Column(db.Integer,primary_key=False)
+    price = db.Column(db.Integer,primary_key=False)
+    phase = db.Column(db.String(10))
+    # def __repr__(self):
+        # return '<User %r>'%self.username
+
+class Chat_table(db.Model):
+    chat_id = db.Column(db.Integer,primary_key=True)
+    deal_id = db.Column(db.Integer,primary_key=False)
+    speaker = db.Column(db.Integer,primary_key=False)
+    chat_contents = db.Column(db.String(100))
+    # def __repr__(self):
+        # return '<User %r>'%self.username
+
+
+@app.route('/',methods=["POST","GET"])
 def index():
     return render_template('home_page.html')
 
@@ -43,34 +73,82 @@ def index():
 def sign_up():
     return render_template('sign_up.html')
 
+@app.route("/register",methods=["POST"])
+def register():
+    if request.form['username'] and request.form['password']:
+        username = request.form['username']
+        password = request.form['password']
+        new_user = User_table(username=username,password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user,True) # ユーザが新規登録されたときは，ログイン状態にする．
+        return redirect('/top_page')
+    else:
+        return render_template("error.html")
+
 @app.route("/sign_in")
 def sign_in():
-    return render_template("sign_in.html")
+    return render_template('sign_in.html')
+
+@app.route("/login",methods=["POST"])
+def login():
+    if request.form["username"] and request.form["password"]:
+        posted_username = request.form["username"]
+        user_in_database = User_table.query.filter_by(username=posted_username).first()
+        if request.form["password"] == user_in_database.password: # 入力されたpasswordが正しい場合
+            login_user(user_in_database,True)
+            return redirect('/top_page')
+        else:
+            return render_template('error.html')
+    else:
+        return render_template("error.html")
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    logout_user()
+    goods = Goods_table.query.all()
+    return render_template("top_page.html",goods=goods)
+
 
 @app.route("/top_page",methods=["POST","GET"])
-def login():
+def top_page():
     goods = Goods_table.query.all()
-    if request.method =="POST":
-        if request.form['username'] and request.form['password']:
-            username = request.form['username']
-            password = request.form['password']
-            new_user = User_table(username=username,password=password)
-            db.session.add(new_user)
-            db.session.commit()
-            return render_template("top_page.html",username=username,goods =goods)
-        else:
-            return render_template("error.html")
-    elif request.method== "GET":
-        username = "ゲスト"
-        return render_template("top_page.html",username=username,goods=goods)
+    return render_template("top_page.html",goods=goods)
 
 @app.route("/post_goods")
 def post_goods():
     return render_template("post_goods.html")
 
-@app.route("/chat")
-def chat():
-    return render_template("chat.html")
+@app.route("/chat/<int:id>")
+def chat(id):
+    lend_deal = Deal_table.query.filter(Deal_table.lender_id==id).all()
+    # [Deal_table1,Deal_table2]のようにリスト型で帰って来る
+    borrow_deal = Deal_table.query.filter(Deal_table.borrower_id==id).all()
+    # for deal_num in range(len(lend_deal)):
+        # goods_id=lend_deal[deal_num].goods_id
+    return render_template("chat.html",lend_deal=lend_deal,borrow_deal=borrow_deal)
+
+@app.route("/chat/detail/<int:deal_id>")
+def chat_detail(deal_id):
+    chat=Chat_table.query.filter(Chat_table.deal_id==deal_id).all()
+    chat_list=[]
+    for num in range(len(chat)):
+        chat_dic={}
+        chat_dic["speaker"]=User_table.query.filter(User_table.id==chat[num].speaker).first().username
+        chat_dic["chat_contents"]=chat[num].chat_contents
+        chat_list.append(chat_dic)
+    return render_template("chat_detail.html",chat_list=chat_list,deal_id=deal_id)
+
+@app.route("/chat_result",methods=["POST"])
+def chat_result():
+    deal_id = request.form["deal_id"]
+    chat_contents=request.form["one_chat"]
+    speaker = request.form["speaker"]
+    new_chat = Chat_table(deal_id=deal_id,speaker=speaker,chat_contents=chat_contents)
+    db.session.add(new_chat)
+    db.session.commit()
+    return render_template("chat_result.html",deal_id=deal_id)
+
 
 @app.route("/complete_post_goods",methods=["POST"])
 def complete_post_goods():
@@ -83,7 +161,7 @@ def complete_post_goods():
         f.save(filepath1)
         if request.files['image2']:
             f = request.files['image2']
-            filepath2 = 'static/' + f.filename
+            filepath2 = 'static/'+ f.filename
             f.save(filepath2)
             if request.files['image3']:
                 f = request.files['image3']
@@ -94,12 +172,14 @@ def complete_post_goods():
         else:
             filepath2=""
             filepath3=""
-        new_goods = Goods_table(goods_name=goods_name,rental_fee=rental_fee,description=description,
-                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
+        username = request.form['username']
+        id = request.form['id']
+        new_goods = Goods_table(id=id,goods_name=goods_name,rental_fee=rental_fee,description=description,
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3,username=username)
         db.session.add(new_goods)
         db.session.commit()
         return render_template("complete_post_goods.html",goods_name=goods_name,rental_fee=rental_fee,description=description,
-                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3)
+                                filepath1=filepath1,filepath2=filepath2,filepath3=filepath3,username=username)
     else:
         return render_template("error.html")
 
@@ -111,6 +191,32 @@ def search_result():
         return render_template("search_result.html",goods=goods)
     else:
         return render_template("error.html")
+
+@app.route("/goods_detail/<int:goods_id>")
+def goods_detail(goods_id):
+    good = Goods_table.query.filter(Goods_table.goods_id==goods_id)
+    return render_template("goods_detail.html",good=good)
+
+@app.route("/rental_done", methods=["POST"])
+def rental_done():
+    goods_id = request.form['goods_id']
+    lender_id = request.form["lender_id"]
+    borrower_id = request.form["borrower_id"]
+    price = request.form["price"]
+    phase ="レンタル開始"
+    new_deal = Deal_table(goods_id=goods_id,lender_id=lender_id,borrower_id=borrower_id,
+    price=price,phase=phase)
+    db.session.add(new_deal)
+    db.session.commit()
+    return render_template("rental_done.html")
+
+@app.route("/mypage",methods=["POST"])
+def mypage():
+    id = request.form["id"]
+    user_information = User_table.query.filter(User_table.id==id).first()
+    return render_template("mypage.html",user_information=user_information)
+
+
 
 #テーブルの初期化のコマンド、これをしないとSQLAlchemyがdbにアクセスできない。
 @app.cli.command('initdb')

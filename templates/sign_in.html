@@ -5,7 +5,18 @@
 {% endblock %}
 
 {% block contents %}
+<header>
   <h1>サインイン</h1>
-  <p>未実装</p>
+</header>
+<section id=login>
+  <form method="POST" action="/login",enctype="multipart/form-data">
+    <input placeholder="名前" name="username" type="text"/>
+    <input placeholder="パスワード" name="password" type="password"/>
+    <input value="送信" type="submit"/>
+  </form>
+</section>
+
+  <footer>
   <a href="#" onclick="history.back(); return false;">前に戻る</a>
+  </footer>
 {% endblock %}

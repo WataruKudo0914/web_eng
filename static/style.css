@@ -64,7 +64,7 @@ h3 {
 h1 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: #fff;
+    /* color: #fff; */
     font-size: 240%;
     word-spacing: 4px;
     letter-spacing: 1px;
@@ -190,7 +190,6 @@ input[type=submit]:active {
     color: #e67e22;
     font-size: 120%;
     margin-right: 10px;
-    
     /*secrets to align text and icons*/
     line-height: 120%;
     vertical-align: middle;

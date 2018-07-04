@@ -6,16 +6,23 @@
 {% endblock %}
 
 {% block contents %}
-<h1>出品する商品</h1>
-<h1>{{goods_name}}</h1>
-<h1>レンタル料</h1>
-<h1>{{rental_fee}}</h1>
-<h1>紹介文</h1>
-<h1>{{description}}</h1>
-<h1>写真</h1>
-<img src="{{filepath1}}" width=200px height=200px>
-<img src="{{filepath2}}" width=200px height=200px>
-<img src="{{filepath3}}" width=200px height=200px>
-<p>これで出品しました</p>
-<a href="/top_page">トップページへ戻る</a>
+<section id=complete_post_goods>
+  <h1>出品者</h1>
+  <h1>{{username}}</h1>
+  <h1>出品する商品</h1>
+  <h1>{{goods_name}}</h1>
+  <h1>レンタル料</h1>
+  <h1>{{rental_fee}}</h1>
+  <h1>紹介文</h1>
+  <h1>{{description}}</h1>
+  <h1>写真</h1>
+  <img src="{{filepath1}}" width=200px height=200px>
+  <img src="{{filepath2}}" width=200px height=200px>
+  <img src="{{filepath3}}" width=200px height=200px>
+  <p>これで出品しました</p>
+</section>
+
+<footer>
+  <a href="/top_page">トップページへ戻る</a>
+</footer>
 {% endblock %}

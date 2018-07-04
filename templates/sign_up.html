@@ -1,36 +1,27 @@
-<!--
 {% extends "page_template.html" %}
-{% block title %}サインアップ{% endblock %}
+{% block title %}Sign up{% endblock %}
 {% block head %}
 {{super()}}
+
 {% endblock %}
-
-{% block contents %}
--->
-
-<head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        
-        <link rel="stylesheet" type="text/css" href="../static/style.css">
-        <link rel="stylesheet" type="text/css" href="../static/grid.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<link rel="stylesheet" type="text/css" href="../static/grid.css">
 <!--        <link rel="stylesheet" type="text/css" href="static/css/queries.css">-->
-        <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic" rel="stylesheet" type="text/css">
-        <title>Sign up</title>
-       
-</head>
+<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic" rel="stylesheet" type="text/css">
+{% block contents %}
 
 <header>
-     <div class="row sign-up-title">
+   <div class="row sign-up-title">
     <h2>ユーザー登録</h2>
-    </div>
+   </div>
+
 </header>
 
 <section>
 <div class="row">
 
-  <form method="POST" action="/top_page",enctype="mulitpart/form-data">
+  <form method="POST" action="/register" enctype="mulitpart/form-data">
     <input placeholder="名前" name="username" type="text"/>
     <input placeholder="パスワード" name="password" type="password"/>
     <input value="送信" type="submit"/>
@@ -43,4 +34,4 @@
 <footer>
   <a href="#" onclick="history.back(); return false;">前に戻る</a>
 </footer>
-<!--{% endblock %}-->
+{% endblock %}

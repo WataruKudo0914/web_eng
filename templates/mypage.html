@@ -1,0 +1,17 @@
+{% extends "page_template.html" %}
+{% block title %}My Page{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+
+{% block contents %}
+<section id=profile>
+  <h2>UserName</h2>
+  <h2>{{user_information.username}}</h2>
+  <h2><a href="/chat/{{user_information.id}}">取引中の商品(チャット画面に遷移します)</a></h2>
+</section>
+
+<footer>
+  <p><a href="/top_page">TOPへ</a></p>
+</footer>
+{% endblock %}
