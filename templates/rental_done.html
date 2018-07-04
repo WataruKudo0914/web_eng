@@ -4,10 +4,12 @@
 {{super()}}
 {% endblock %}
 
-<section id=complete_rental>
-下記の内容でレンタルが完了しました。
-  {{good}}
-</section>
+{% block contents %}
+  <section class=complete_rental>
+  下記の内容でレンタルが完了しました。
+    {{good}}
+  </section>
+{% endblock %}
 
 {% block footer %}
   <a href="/top_page">TOPへ</a>
