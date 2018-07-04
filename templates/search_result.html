@@ -5,16 +5,21 @@
 {% endblock %}
 
 {% block contents %}
-<h1>検索結果はこちらです。</h1>
-{% for good in goods %}
-<tr>
-  <td>{{good.goods_id}}</td>
-  <td>{{good.goods_name}}</td>
-  <td>{{good.rental_fee}}</td>
-  <td>{{good.description}}</td>
-  <td><img src={{good.filepath1}}/ width=200px height=200px  ></td>
-  <br>
-</tr>
-{% endfor %}
-<a href="#" onclick="history.back(); return false;">トップページへ戻る</a>
+  <section id=search_result>
+    <h1>検索結果はこちらです。</h1>
+    {% for good in goods %}
+    <tr>
+      <td>{{good.goods_id}}</td>
+      <td>{{good.goods_name}}</td>
+      <td>{{good.rental_fee}}</td>
+      <td>{{good.description}}</td>
+      <td><img src={{good.filepath1}}/ width=200px height=200px  ></td>
+      <br>
+    </tr>
+    {% endfor %}
+  </section>
+{% endblock %}
+
+{% block footer %}
+  <a href="#" onclick="history.back(); return false;">トップページへ戻る</a>
 {% endblock %}
