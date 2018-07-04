@@ -3,11 +3,113 @@
 {% block head %}
 {{super()}}
 {% endblock %}
+{% block contents %}
+<body>
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
 
-<section id=register>
-  {% block contents %}
-  <h1>sign in OR sign up</h1>
-  <h3><a href="/sign_up">sign up</a></h3>
-  <h3><a href="/sign_in">sign in</a></h3>
-  {% endblock %}
-</section>
+        <link rel="stylesheet" type="text/css" href="../static/style.css">
+        <link rel="stylesheet" type="text/css" href="../static/grid.css">
+        <link rel="stylesheet" type="text/css" href="../static/ionicons.min.css">
+
+
+<!--        <link rel="stylesheet" type="text/css" href="static/css/queries.css">-->
+        <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic" rel="stylesheet" type="text/css">
+        <title>Rental service</title>
+
+    </head>
+
+
+
+        <header>
+            <nav>
+                <div class="row">
+                    <ul class="main-nav">
+                        <li><a href="#features">サービス概要</a></li>
+                        <li><a href="#works">利用ガイド</a></li>
+                        <li><a href="/sign_in">ログイン</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="hero-text-box">
+                <h1>大学生用レンタルサービス<br>使わなくなったものを売りたい，レンタルしたい</h1>
+                <a class="btn btn-ghost js--scroll-to-plans" href="#">貸したい</a>
+                <a class="btn btn-ghost js--scroll-to-start" href="#">借りたい</a>
+
+            </div>
+
+        </header>
+
+        <section class="sign-up" id="sign-up">
+                <div class="sign-up-box">
+
+                <a class="btn btn-full btn-sign" href="/sign_up">新規登録</a>
+                <a class="btn btn-ghost btn-sign" href="/sign_in">ログイン</a>
+                </div>
+
+        </section>
+
+
+
+
+
+        <section class="section-features js--section-features" id="features">
+            <div class="row">
+                <h2>授業や趣味で欲しい本を一時的にレンタルしたいよね &mdash; だって、新しく買ったら勿体ない！</h2>
+                <p class="long-copy">
+                    私たちは大学生向けに学生同士が安心してお互いに必要なものを貸したり、借りたりするサービスを提供します。
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col span-1-of-4 box">
+<!--                    <i class="ion-ios-infinite-outline icon-big"></i>-->
+                    <h3>安く借りたい</h3>
+                    <p>
+                        他のサービスだと、人によってはニーズがマッチしていないし高い。
+                    </p>
+                </div>
+                <div class="col span-1-of-4 box">
+<!--                    <i class="ion-ios-stopwatch-outline icon-big"></i>-->
+                    <h3>速く借りたい</h3>
+                    <p>
+                        学内での交換だともっと速く手に入りますよね。ラッキー！
+                    </p>
+                </div>
+                <div class="col span-1-of-4 box">
+<!--                    <i class="ion-ios-nutrition-outline icon-big"></i>-->
+                    <h3>一時だけ必要</h3>
+                    <p>
+                        テスト前に少しの期間だけ必要な本を，買う場合に比べて安く借りられる
+                    </p>
+                </div>
+               <div class="col span-1-of-4 box">
+<!--                    <i class="ion-ios-nutrition-outline icon-big"></i>-->
+                    <h3>xxxxxx</h3>
+                    <p>
+                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+                <footer>
+                    <div class="row footer-nav">
+                  {% block footer %}
+                  {% endblock %}
+                  <p>
+
+               Copyright &copy; 2018 by A team. All rights reserved.
+                </p>
+                        </div>
+                </footer>
+
+
+
+
+</body>
+
+<!--{% endblock %}-->

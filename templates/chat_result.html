@@ -1,3 +1,10 @@
+{% extends "page_template.html" %}
+{% block title %}チャット投稿完了{% endblock %}
+{% block head %}
+{{super()}}
+{% endblock %}
+
+{% block contents %}
 <section id=complete_post_chat>
 <h1>チャットの投稿が完了しました。</h1>
 </section>
@@ -5,3 +12,4 @@
 <foooter>
   <p><a href="/top_page">TOPへ</a></p>
 </foooter>
+{% endblock %}

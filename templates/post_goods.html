@@ -11,7 +11,7 @@
   サービス名
 </h1>
 </header>
-<section>
+<section id=post_goods>
   <h1>出品</h1>
   <form method="POST" action="/complete_post_goods" enctype="multipart/form-data">
     <label for="goods_name">商品名</label><br>
@@ -43,12 +43,9 @@
           <label for"consent_yes">以上の規約に同意しますか？</label>
           <input type="checkbox" id="consent_yes">
     </section>
-
     <input value="送信" type="submit"/>
   </form>
-
-<p>
-商品の出品を行う</p>
+ <p>商品の出品を行う</p>
 </section>
 
 {% endblock %}
