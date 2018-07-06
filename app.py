@@ -32,7 +32,7 @@ class User_table(UserMixin,db.Model):
     faculty = db.Column(db.String(60),index=True) # 学部
     major = db.Column(db.String(60),index=True) # 学科
     grade = db.Column(db.Integer) # 学年
-    self_introduction = db.Column(String(140),index=True)
+    self_introduction = db.Column(db.String(140),index=True)
     password = db.Column(db.String(20),index=True)
     def __repr__(self):
         return '<User %r>'%self.username
@@ -82,8 +82,14 @@ def sign_up():
 def register():
     if request.form['username'] and request.form['password']:
         username = request.form['username']
+        email = request.form["email"]
         password = request.form['password']
-        new_user = User_table(username=username,password=password)
+        faculty = request.form["faculty"]
+        major = request.form["major"]
+        grade = request.form["grade"]
+        self_introduction = request.form["self_introduction"]
+        new_user = User_table(username=username,email=email,password=password,
+        faculty=faculty,major=major,grade=grade,self_introduction=self_introduction)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user,True) # ユーザが新規登録されたときは，ログイン状態にする．
@@ -219,7 +225,8 @@ def rental_done():
 def mypage():
     id = request.form["id"]
     user_information = User_table.query.filter(User_table.id==id).first()
-    return render_template("mypage.html",user_information=user_information)
+    posted_goods = Goods_table.query.filter(Goods_table.id==id).all()
+    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods)
 
 
 
