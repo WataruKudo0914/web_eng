@@ -21,7 +21,7 @@
     <input placeholder="チャットをしましょう" name="one_chat" type="text"/><br>
     <input type="submit" value="送信">
     <input type="hidden" name=speaker value={{current_user.id}}>
-    <input type="hidden" name=deal_id value={{deal_id}}>
+    <input type="hidden" name=deal_id value={{deal.deal_id}}>
   </form>
 </section>
 <!-- 取引の状態を貸す人／借りる人が変更する -->
@@ -41,6 +41,6 @@
     <label>状態の変更</label><br>
     <input value="変更する" type="submit"/>
     <input type="hidden" name=submitter_id value={{current_user.id}}>
-    <input type="hidden" name=deal_id value={{deal_id}}>
+    <input type="hidden" name=deal_id value={{deal.deal_id}}>
   </form>
 {% endblock %}
