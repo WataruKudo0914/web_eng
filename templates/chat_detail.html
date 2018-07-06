@@ -21,7 +21,26 @@
     <input placeholder="チャットをしましょう" name="one_chat" type="text"/><br>
     <input type="submit" value="送信">
     <input type="hidden" name=speaker value={{current_user.id}}>
-    <input type="hidden" name=deal_id value={{deal_id}}>
+    <input type="hidden" name=deal_id value={{deal.deal_id}}>
   </form>
 </section>
+<!-- 取引の状態を貸す人／借りる人が変更する -->
+<section class=deal_phase>
+  <h1>取引状態の変更</h1>
+  <h2>現在の状態:</h2>
+  {% if deal.lender_check and deal.borrower_check %}
+    <h3>レンタル中．商品は【借りる人】さんが持っています．</h3>
+  {% elif deal.lender_check %}
+    <h3>借りる人の承認が得られていません．</h3>
+  {% elif deal.borrower_check %}
+    <h3>貸す人の承認が得られていません．</h3>
+  {% else %}
+    <h3>レンタル可能．商品は【貸す人】さんが持っています．</h3>
+  {% endif %}
+  <form method="POST" action="/update_phase" enctype="multipart/form-data">
+    <label>状態の変更</label><br>
+    <input value="変更する" type="submit"/>
+    <input type="hidden" name=submitter_id value={{current_user.id}}>
+    <input type="hidden" name=deal_id value={{deal.deal_id}}>
+  </form>
 {% endblock %}
