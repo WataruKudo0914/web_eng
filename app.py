@@ -83,8 +83,14 @@ def sign_up():
 def register():
     if request.form['username'] and request.form['password']:
         username = request.form['username']
+        email = request.form["email"]
         password = request.form['password']
-        new_user = User_table(username=username,password=password)
+        faculty = request.form["faculty"]
+        major = request.form["major"]
+        grade = request.form["grade"]
+        self_introduction = request.form["self_introduction"]
+        new_user = User_table(username=username,email=email,password=password,
+        faculty=faculty,major=major,grade=grade,self_introduction=self_introduction)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user,True) # ユーザが新規登録されたときは，ログイン状態にする．
@@ -222,7 +228,8 @@ def rental_done():
 def mypage():
     id = request.form["id"]
     user_information = User_table.query.filter(User_table.id==id).first()
-    return render_template("mypage.html",user_information=user_information)
+    posted_goods = Goods_table.query.filter(Goods_table.id==id).all()
+    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods)
 
 @app.route("/update_phase",methods=["POST"])
 def update_phase():
