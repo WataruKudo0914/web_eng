@@ -32,7 +32,7 @@ class User_table(UserMixin,db.Model):
     faculty = db.Column(db.String(60),index=True) # 学部
     major = db.Column(db.String(60),index=True) # 学科
     grade = db.Column(db.Integer) # 学年
-    self_introduction = db.Column(String(140),index=True)
+    self_introduction = db.Column(db.String(140),index=True)
     password = db.Column(db.String(20),index=True)
     def __repr__(self):
         return '<User %r>'%self.username
@@ -57,7 +57,8 @@ class Deal_table(db.Model):
     lender_id = db.Column(db.Integer,primary_key=False)
     borrower_id = db.Column(db.Integer,primary_key=False)
     price = db.Column(db.Integer,primary_key=False)
-    phase = db.Column(db.String(10))
+    lender_check = db.Column(db.Boolean) # レンタル中ならTrue．貸す人によるチェック．
+    borrower_check = db.Column(db.Boolean) # レンタル中ならTrue．借りる人によるチェック．
     # def __repr__(self):
         # return '<User %r>'%self.username
 
