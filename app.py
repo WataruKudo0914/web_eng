@@ -136,6 +136,8 @@ def chat(id):
 
 @app.route("/chat/detail/<int:deal_id>")
 def chat_detail(deal_id):
+    deal = Deal_table.query.filter(Deal_table.deal_id==deal_id).all()
+    print(deal)
     chat=Chat_table.query.filter(Chat_table.deal_id==deal_id).all()
     chat_list=[]
     for num in range(len(chat)):
@@ -143,7 +145,7 @@ def chat_detail(deal_id):
         chat_dic["speaker"]=User_table.query.filter(User_table.id==chat[num].speaker).first().username
         chat_dic["chat_contents"]=chat[num].chat_contents
         chat_list.append(chat_dic)
-    return render_template("chat_detail.html",chat_list=chat_list,deal_id=deal_id)
+    return render_template("chat_detail.html",chat_list=chat_list,deal=deal,deal_id=deal_id)
 
 @app.route("/chat_result",methods=["POST"])
 def chat_result():
@@ -209,9 +211,10 @@ def rental_done():
     lender_id = request.form["lender_id"]
     borrower_id = request.form["borrower_id"]
     price = request.form["price"]
-    phase ="レンタル開始"
+    lender_check = False # 初期値はFalse
+    borrower_check = False
     new_deal = Deal_table(goods_id=goods_id,lender_id=lender_id,borrower_id=borrower_id,
-    price=price,phase=phase)
+    price=price,lender_check=lender_check,borrower_check=borrower_check)
     db.session.add(new_deal)
     db.session.commit()
     return render_template("rental_done.html")
@@ -221,6 +224,22 @@ def mypage():
     id = request.form["id"]
     user_information = User_table.query.filter(User_table.id==id).first()
     return render_template("mypage.html",user_information=user_information)
+
+@app.route("/update_phase",methods=["POST"])
+def update_phase():
+    submitter_id = request.form["submitter_id"]
+    deal_id = request.form["deal_id"]
+    new_deal = Deal_table.query.filter(Deal_table.deal_id==deal_id).first()
+    if submitter_id == new_deal.lender_id: # 状態変更を申し出たのがlenderだったら
+        new_deal.lender_check = not new_deal.lender_check # チェックのブーリアンを反転
+    elif submitter_id == new_deal.borrower_id:
+        new_deal.borrower_check = not new_deal.borrower_check
+    else:
+        return render_template("error.html")
+    db.session.add(new_deal)
+    db.session.commit()
+    print('ここまで実行')
+    return redirect("/chat/detail/<int:deal_id>")
 
 
 
