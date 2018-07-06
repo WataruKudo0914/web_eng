@@ -28,6 +28,11 @@ def load_user(id):
 class User_table(UserMixin,db.Model):
     id= db.Column(db.Integer,primary_key =True)
     username = db.Column(db.String(60),index=True,unique=True)
+    email = db.Column(db.String(60),index=True,unique=True)
+    faculty = db.Column(db.String(60),index=True) # 学部
+    major = db.Column(db.String(60),index=True) # 学科
+    grade = db.Column(db.Integer) # 学年
+    self_introduction = db.Column(String(140),index=True)
     password = db.Column(db.String(20),index=True)
     def __repr__(self):
         return '<User %r>'%self.username
