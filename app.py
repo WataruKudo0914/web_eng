@@ -145,6 +145,8 @@ def chat(id):
 @app.route("/chat/detail/<int:deal_id>")
 def chat_detail(deal_id):
     deal = Deal_table.query.filter(Deal_table.deal_id==deal_id).first()
+    lender_name = User_table.query.filter(User_table.id==deal.lender_id).first().username
+    borrower_name = User_table.query.filter(User_table.id==deal.borrower_id).first().username
     chat=Chat_table.query.filter(Chat_table.deal_id==deal_id).all()
     chat_list=[]
     for num in range(len(chat)):
@@ -152,7 +154,8 @@ def chat_detail(deal_id):
         chat_dic["speaker"]=User_table.query.filter(User_table.id==chat[num].speaker).first().username
         chat_dic["chat_contents"]=chat[num].chat_contents
         chat_list.append(chat_dic)
-    return render_template("chat_detail.html",chat_list=chat_list,deal=deal)
+    return render_template("chat_detail.html",chat_list=chat_list,deal=deal,
+        lender_name=lender_name,borrower_name=borrower_name)
 
 @app.route("/chat_result",methods=["POST"])
 def chat_result():
