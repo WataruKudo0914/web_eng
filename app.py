@@ -138,7 +138,9 @@ def chat(id):
     borrow_deal = Deal_table.query.filter(Deal_table.borrower_id==id).all()
     # for deal_num in range(len(lend_deal)):
         # goods_id=lend_deal[deal_num].goods_id
-    return render_template("chat.html",lend_deal=lend_deal,borrow_deal=borrow_deal)
+    user = User_table
+    goods = Goods_table
+    return render_template("chat.html",lend_deal=lend_deal,borrow_deal=borrow_deal,user=user,goods=goods)
 
 @app.route("/chat/detail/<int:deal_id>")
 def chat_detail(deal_id):

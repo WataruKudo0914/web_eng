@@ -13,20 +13,22 @@
  <section class=lend_deal>
     <h2>貸している取引</h2>
     {% for deal in lend_deal %}
-    <h3><a href="/chat/detail/{{deal.deal_id}}">貸している商品
-      {{deal.goods_id}}</a></h3>
-    <h3>誰に貸しているか
-      ユーザーid{{deal.borrower_id}}</h3>
+    <h3><a href="/chat/detail/{{deal.deal_id}}">貸している商品：
+      {{goods.query.filter(goods.goods_id==deal.goods_id).first().goods_name}}</a></h3>
+    <h3>
+      {{user.query.filter(user.id==deal.borrower_id).first().username}}さんに貸しています
+    </h3>
     {% endfor %}
 </section>
 
 <section class=borrow_deal>
   <h2>借りている取引</h2>
   {% for deal in borrow_deal %}
-  <h3><a href="/chat/detail/{{deal.deal_id}}">借りている商品
-  {{deal.goods_id}}</a></h3>
-  <h3>誰から借りているか
-  ユーザーid {{deal.lender_id}}</h3>
+  <h3><a href="/chat/detail/{{deal.deal_id}}">借りている商品：
+    {{goods.query.filter(goods.goods_id==deal.goods_id).first().goods_name}}</a></h3>
+  <h3>
+    {{user.query.filter(user.id==deal.lender_id).first().username}}さんから借りています．
+  </h3>
   {% endfor %}
 </section>
 
