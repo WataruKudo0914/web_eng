@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block contents %}
-  <section id=search_result>
+  <section class=search_result>
     <h1>検索結果はこちらです。</h1>
     {% for good in goods %}
     <tr>
@@ -13,7 +13,7 @@
       <td>{{good.goods_name}}</td>
       <td>{{good.rental_fee}}</td>
       <td>{{good.description}}</td>
-      <td><img src={{good.filepath1}}/ width=200px height=200px  ></td>
+      <td><a href=/goods_detail{{good.goods_id}}><img src={{good.filepath1}}/ width=200px height=200px  ><a></td>
       <br>
     </tr>
     {% endfor %}

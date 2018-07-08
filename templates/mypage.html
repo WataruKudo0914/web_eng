@@ -5,13 +5,50 @@
 {% endblock %}
 
 {% block contents %}
-<section id=profile>
-  <h2>UserName</h2>
-  <h2>{{user_information.username}}</h2>
-  <h2><a href="/chat/{{user_information.id}}">取引中の商品(チャット画面に遷移します)</a></h2>
-</section>
+  <section class=profile>
+    <h2>UserName</h2>
+    <h2>{{user_information.username}}</h2>
+    <h2>学部</h2>
+    <h2>{{user_information.faculty}}</h2>
+    <h2>学科</h2>
+    <h2>{{user_information.major}}</h2>
+    <h2>学年</h2>
+    <h2>{{user_information.grade}}</h2>
+    <h2>自己紹介</h2>
+    <h2>{{user_information.self_introduction}}</h2>
+  </section>
 
-<footer>
+  <section class=posted_goods>
+      <h2>出品している商品一覧</h2>
+      {% for good in posted_goods %}
+        <div class=a_posted_good>
+          <h3>{{good.goods_name}}</h3>
+          <img src="{{good.filepath1}}" width=200px height=200px>
+        </div>
+      {% endfor %}
+  </section>
+
+  <section class=rental_goods>
+    <h2>レンタルしている商品一覧</h2>
+    {% for rental_good in rental_goods %}
+      <div class=a_rental_good>
+        <h3>{{rental_good.goods_name}}</h3>
+        <img src="{{rental_good.filepath1}}" width=200px height=200px>
+      </div>
+    {% endfor %}
+  </section>
+
+  <section class=lend_goods>
+    <h2>貸している商品一覧</h2>
+    {% for lend_good in lend_goods %}
+      <div class=a_lend_good>
+        <h3>{{lend_good.goods_name}}</h3>
+        <img src="{{lend_good.filepath1}}" width=200px height=200px>
+      </div>
+    {% endfor %}
+  </section>
+{% endblock %}
+
+{% block footer %}
   <p><a href="/top_page">TOPへ</a></p>
-</footer>
 {% endblock %}

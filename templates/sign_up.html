@@ -1,37 +1,46 @@
 {% extends "page_template.html" %}
 {% block title %}Sign up{% endblock %}
+
 {% block head %}
 {{super()}}
-
-{% endblock %}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <link rel="stylesheet" type="text/css" href="../static/grid.css">
 <!--        <link rel="stylesheet" type="text/css" href="static/css/queries.css">-->
 <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
 {% block contents %}
 
-<header>
-   <div class="row sign-up-title">
-    <h2>ユーザー登録</h2>
+  <header>
+     <div class="row sign-up-title">
+      <h2>ユーザー登録</h2>
+     </div>
+
+  </header>
+
+  <section>
+  <div class="row">
+
+    <form method="POST" action="/register" enctype="mulitpart/form-data">
+      <input placeholder="user name" name="username" type="text"/>
+      <input placeholder="e_mailアドレス" name="email" type="type"/>
+      <input placeholder="パスワード" name="password" type="password"/>
+      <input placeholder="学部" name="faculty" type="text"/>
+      <input placeholder="学科" name="major" type="text"/>
+      <input placeholder="学年" name="grade" type="text"/>
+      <input placeholder="自己紹介文" name="self_introduction" type="text"/>
+      <input value="送信" type="submit"/>
+    </form>
+
+    <p>現時点ではしょぼいが、ここをユーザー登録の画面にする適当に入力すると入れます。</p>
    </div>
+  </section>
 
-</header>
+{% endblock %}
 
-<section>
-<div class="row">
 
-  <form method="POST" action="/register" enctype="mulitpart/form-data">
-    <input placeholder="名前" name="username" type="text"/>
-    <input placeholder="パスワード" name="password" type="password"/>
-    <input value="送信" type="submit"/>
-  </form>
-
-  <p>現時点ではしょぼいが、ここをユーザー登録の画面にする適当に入力すると入れます。</p>
- </div>
-</section>
-
-<footer>
+{% block footer %}
   <a href="#" onclick="history.back(); return false;">前に戻る</a>
-</footer>
 {% endblock %}

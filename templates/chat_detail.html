@@ -6,7 +6,7 @@
 
 {% block contents %}
 <!-- チャットを見るところ -->
-<section id=chat_contents>
+<section class=chat_contents>
   {% for chat_content in chat_list %}
   <h1>話者{{chat_content.speaker}}</h1>
   <h1>内容{{chat_content.chat_contents}}<h1>
@@ -14,14 +14,31 @@
 </section>
 
 <!-- チャットの投稿画面 -->
-<section id=post_chat>
+<section class=post_chat>
   <h1>チャットの投稿</h1>
   <form method="POST" action="/chat_result" enctype="multipart/form-data">
     <label>投稿</label><br>
     <input placeholder="チャットをしましょう" name="one_chat" type="text"/><br>
     <input type="submit" value="送信">
     <input type="hidden" name=speaker value={{current_user.id}}>
-    <input type="hidden" name=deal_id value={{deal_id}}>
+    <input type="hidden" name=deal_id value={{deal.deal_id}}>
   </form>
 </section>
+<!-- 取引の状態を貸す人／借りる人が変更する -->
+<section class=deal_phase>
+  <h1>取引状態の変更</h1>
+  <h2>現在の状態:</h2>
+  {% if deal.lender_check and deal.borrower_check %}
+    <h3>レンタル中．商品は{{borrower_name}}さん(borrower)が持っています．</h3>
+  {% elif deal.lender_check or deal.borrower_check %}
+    <h3>取引両者の設定している取引状態が一致していません．</h3>
+  {% else %}
+    <h3>レンタル可能．商品は{{lender_name}}さん(lender)が持っています．</h3>
+  {% endif %}
+  <form method="POST" action="/update_phase" enctype="multipart/form-data">
+    <label>状態の変更</label><br>
+    <input value="変更する" type="submit"/>
+    <input type="hidden" name=submitter_id value={{current_user.id}}>
+    <input type="hidden" name=deal_id value={{deal.deal_id}}>
+  </form>
 {% endblock %}
