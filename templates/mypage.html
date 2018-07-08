@@ -27,6 +27,17 @@
         </div>
       {% endfor %}
   </section>
+
+  <section class=rental_goods>
+    <h2>レンタルしている商品一覧</h2>
+    {% for rental_good in rental_goods %}
+      <div class=a_rental_good>
+        <h3>{{rental_good.goods_name}}</h3>
+        <!-- <a href="/chat/detail/{{}}"> -->
+        <img src="{{rental_good.filepath1}}" width=200px height=200px>
+      </div>
+    {% endfor %}
+  </section>
 {% endblock %}
 
 {% block footer %}

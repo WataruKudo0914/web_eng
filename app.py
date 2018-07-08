@@ -234,7 +234,10 @@ def mypage():
     id = request.form["id"]
     user_information = User_table.query.filter(User_table.id==id).first()
     posted_goods = Goods_table.query.filter(Goods_table.id==id).all()
-    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods)
+    rental_goods_id = Deal_table.query.filter(Deal_table.borrower_id==id).all()
+    for i in rental_goods_id:
+        rental_goods = Goods_table.query.filter(Goods_table.goods_id == i.goods_id).all()
+    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods,rental_goods=rental_goods)
 
 @app.route("/update_phase",methods=["POST"])
 def update_phase():
