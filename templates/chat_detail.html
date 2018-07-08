@@ -29,13 +29,11 @@
   <h1>取引状態の変更</h1>
   <h2>現在の状態:</h2>
   {% if deal.lender_check and deal.borrower_check %}
-    <h3>レンタル中．商品は【借りる人】さんが持っています．</h3>
-  {% elif deal.lender_check %}
-    <h3>借りる人の承認が得られていません．</h3>
-  {% elif deal.borrower_check %}
-    <h3>貸す人の承認が得られていません．</h3>
+    <h3>レンタル中．商品は{{borrower_name}}さん(borrower)が持っています．</h3>
+  {% elif deal.lender_check or deal.borrower_check %}
+    <h3>取引両者の設定している取引状態が一致していません．</h3>
   {% else %}
-    <h3>レンタル可能．商品は【貸す人】さんが持っています．</h3>
+    <h3>レンタル可能．商品は{{lender_name}}さん(lender)が持っています．</h3>
   {% endif %}
   <form method="POST" action="/update_phase" enctype="multipart/form-data">
     <label>状態の変更</label><br>
