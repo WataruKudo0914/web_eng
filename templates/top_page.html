@@ -1,18 +1,44 @@
 {% extends "page_template.html" %}
 {% block title %}page top{% endblock %}
 {% block head %}
+<link rel="stylesheet" href="../static/top_page.css">
 {{super()}}
 {% endblock %}
 
 
 {% block contents %}
   <header>
-    <h1>サービス名</h1>
+    <section id=head>
+      <h1>サービス名</h1>
+      {% if current_user.is_authenticated %}
+      <p>{{current_user.username}}さんようこそ</p>
+      {% else %}
+      <p>ゲストさんようこそ</p>
+      {% endif %}
+    </section>
+
+    <section id=sign>
+      {% if current_user.is_authenticated %}
+          <form method="POST" action="/logout" enctype="multipart/form-data">
+          <input type="submit" value="logout">
+          </form>
+      {% else %}
+          <form method="POST" action="/" enctype="multipart/form-data">
+          <input type="submit" value="log in/sign up">
+          </form>
+      {% endif %}
+
+    </section>
+
+    <section id=mypage>
     {% if current_user.is_authenticated %}
-    <p>{{current_user.username}}さんようこそ</p>
-    {% else %}
-    <p>ゲストさんようこそ</p>
+        <form method="POST" action="/mypage" enctype="multipart/form-data">
+          <input type="submit" value="mypage">
+          <input type="hidden" name="id" value="{{current_user.id}}">
+        </form>
     {% endif %}
+    </section>
+
 
   </header>
 
@@ -58,28 +84,6 @@
     {% else %}
       <h1><a href="/">チャット</a></h1>
     {% endif %}
-  </section>
-
-  <section id=sign>
-    {% if current_user.is_authenticated %}
-        <form method="POST" action="/logout" enctype="multipart/form-data">
-        <input type="submit" value="logout">
-        </form>
-    {% else %}
-        <form method="POST" action="/" enctype="multipart/form-data">
-        <input type="submit" value="log in/sign up">
-        </form>
-    {% endif %}
-
-  </section>
-
-  <section id=mypage>
-  {% if current_user.is_authenticated %}
-      <form method="POST" action="/mypage" enctype="multipart/form-data">
-        <input type="submit" value="mypage">
-        <input type="hidden" name="id" value="{{current_user.id}}">
-      </form>
-  {% endif %}
   </section>
 
 {% endblock %}

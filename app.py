@@ -227,14 +227,27 @@ def rental_done():
     price=price,lender_check=lender_check,borrower_check=borrower_check)
     db.session.add(new_deal)
     db.session.commit()
-    return render_template("rental_done.html")
+    return render_template("rental_done.html",new_deal=new_deal)
 
 @app.route("/mypage",methods=["POST"])
 def mypage():
     id = request.form["id"]
     user_information = User_table.query.filter(User_table.id==id).first()
     posted_goods = Goods_table.query.filter(Goods_table.id==id).all()
-    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods)
+    rental_goods_id = Deal_table.query.filter(Deal_table.borrower_id==id).all()
+    if len(rental_goods_id) != 0:
+        for i in rental_goods_id:
+            rental_goods = Goods_table.query.filter(Goods_table.goods_id == i.goods_id).all()
+    else:
+        rental_goods = []
+
+    lend_goods_id = Deal_table.query.filter(Deal_table.lender_id==id).all()
+    if len(lend_goods_id) != 0:
+        for i in lend_goods_id:
+            lend_goods = Goods_table.query.filter(Goods_table.goods_id == i.goods_id).all()
+    else:
+        lend_goods = []
+    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods,rental_goods=rental_goods,lend_goods=lend_goods)
 
 @app.route("/update_phase",methods=["POST"])
 def update_phase():
