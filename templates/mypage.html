@@ -1,6 +1,7 @@
 {% extends "page_template.html" %}
 {% block title %}My Page{% endblock %}
 {% block head %}
+<link rel="stylesheet" href="../static/various_goods.css">
 {{super()}}
 {% endblock %}
 
@@ -19,33 +20,63 @@
   </section>
 
   <section class=posted_goods>
+    <div class=various_goods>
       <h2>出品している商品一覧</h2>
       {% for good in posted_goods %}
-        <div class=a_posted_good>
-          <h3>{{good.goods_name}}</h3>
-          <img src="{{good.filepath1}}" width=200px height=200px>
+        <div class=one_good>
+          <tr>
+            <td>出品者: </td><br>
+            <td>{{good.username}}</td><br>
+            <td>商品名: </td><br>
+            <td>{{good.goods_name}}</td><br>
+            <td>レンタル料: </td><br>
+            <td>{{good.rental_fee}}</td><br>
+            <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+            <br>
+          </tr>
         </div>
       {% endfor %}
+    </div>
   </section>
 
   <section class=rental_goods>
-    <h2>レンタルしている商品一覧</h2>
-    {% for rental_good in rental_goods %}
-      <div class=a_rental_good>
-        <h3>{{rental_good.goods_name}}</h3>
-        <img src="{{rental_good.filepath1}}" width=200px height=200px>
-      </div>
-    {% endfor %}
+    <div class=various_goods>
+      <h2>レンタルしている商品一覧</h2>
+      {% for good in rental_goods %}
+        <div class=one_good>
+          <tr>
+            <td>出品者: </td><br>
+            <td>{{good.username}}</td><br>
+            <td>商品名: </td><br>
+            <td>{{good.goods_name}}</td><br>
+            <td>レンタル料: </td><br>
+            <td>{{good.rental_fee}}</td><br>
+            <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+            <br>
+          </tr>
+        </div>
+      {% endfor %}
+    </div>
   </section>
 
   <section class=lend_goods>
-    <h2>貸している商品一覧</h2>
-    {% for lend_good in lend_goods %}
-      <div class=a_lend_good>
-        <h3>{{lend_good.goods_name}}</h3>
-        <img src="{{lend_good.filepath1}}" width=200px height=200px>
+    <div class=various_goods>
+      <h2>貸している商品一覧</h2>
+      {% for good in lend_goods %}
+      <div class=one_good>
+        <tr>
+          <td>出品者: </td><br>
+          <td>{{good.username}}</td><br>
+          <td>商品名: </td><br>
+          <td>{{good.goods_name}}</td><br>
+          <td>レンタル料: </td><br>
+          <td>{{good.rental_fee}}</td><br>
+          <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+          <br>
+        </tr>
       </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </section>
 {% endblock %}
 

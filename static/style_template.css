@@ -24,6 +24,11 @@ body {
     visibility: hidden;
 }
 
+section{
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
 
 
 /*
@@ -46,7 +51,7 @@ body {
 }
 
 section {
-    padding: 80px 0;
+    padding: 30px 0;
 }
 
 .box {
@@ -99,9 +104,13 @@ header {
     background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hon1.jpg);
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(img/hon1.jpg);
     background-size: cover;
+    /* height: 100vh; */
     background-position: center;
-    height: 30vh;
     background-attachment: fixed;
+}
+
+header h1{
+  color: #fff;
 }
 
 .hero-text-box {

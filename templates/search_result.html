@@ -2,21 +2,28 @@
 {% block title %}検索結果{% endblock %}
 {% block head %}
 {{super()}}
+<link rel="stylesheet" href="../static/various_goods.css">
 {% endblock %}
 
 {% block contents %}
   <section class=search_result>
-    <h1>検索結果はこちらです。</h1>
-    {% for good in goods %}
-    <tr>
-      <td>{{good.goods_id}}</td>
-      <td>{{good.goods_name}}</td>
-      <td>{{good.rental_fee}}</td>
-      <td>{{good.description}}</td>
-      <td><a href=/goods_detail{{good.goods_id}}><img src={{good.filepath1}}/ width=200px height=200px  ><a></td>
-      <br>
-    </tr>
-    {% endfor %}
+    <div classs="various_goods">
+      <h1>検索結果はこちらです。</h1>
+      {% for good in goods %}
+      <div class="one_good">
+        <tr>
+          <td>出品者: </td><br>
+          <td>{{good.username}}</td><br>
+          <td>商品名: </td><br>
+          <td>{{good.goods_name}}</td><br>
+          <td>レンタル料: </td><br>
+          <td>{{good.rental_fee}}</td><br>
+          <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+          <br>
+        </tr>
+      </div>
+      {% endfor %}
+    </div>
   </section>
 {% endblock %}
 
