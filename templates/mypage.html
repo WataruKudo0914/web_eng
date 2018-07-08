@@ -33,8 +33,17 @@
     {% for rental_good in rental_goods %}
       <div class=a_rental_good>
         <h3>{{rental_good.goods_name}}</h3>
-        <!-- <a href="/chat/detail/{{}}"> -->
         <img src="{{rental_good.filepath1}}" width=200px height=200px>
+      </div>
+    {% endfor %}
+  </section>
+
+  <section class=lend_goods>
+    <h2>貸している商品一覧</h2>
+    {% for lend_good in lend_goods %}
+      <div class=a_lend_good>
+        <h3>{{lend_good.goods_name}}</h3>
+        <img src="{{lend_good.filepath1}}" width=200px height=200px>
       </div>
     {% endfor %}
   </section>
