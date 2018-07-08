@@ -2,6 +2,7 @@
 {% block title %}page top{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="../static/top_page.css">
+<link rel="stylesheet" href="../static/various_goods.css">
 {{super()}}
 {% endblock %}
 
@@ -10,11 +11,13 @@
   <header>
     <section id=head>
       <h1>サービス名</h1>
-      {% if current_user.is_authenticated %}
-      <p>{{current_user.username}}さんようこそ</p>
-      {% else %}
-      <p>ゲストさんようこそ</p>
-      {% endif %}
+      <div id=sub_title>
+        {% if current_user.is_authenticated %}
+          <p>{{current_user.username}}さんようこそ</p>
+        {% else %}
+          <p>ゲストさんようこそ</p>
+        {% endif %}
+      </div>
     </section>
 
     <section id=sign>
@@ -50,21 +53,21 @@
     </form>
   </section>
 
-  <section id=various_goods>
+  <section class=various_goods>
     <h1>商品一覧</h1>
     {% for good in goods %}
-    <tr>
-      <td>出品者: </td>
-      <td>{{good.username}}</td><br>
-      <td>商品名: </td>
-      <td>{{good.goods_name}}</td><br>
-      <td>レンタル料: </td>
-      <td>{{good.rental_fee}}</td><br>
-      <td>商品の説明: </td>
-      <td>{{good.description}}</td><br>
-      <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px  ></a></td>
-      <br>
-    </tr>
+    <div class=one_good>
+      <tr>
+        <td>出品者: </td><br>
+        <td>{{good.username}}</td><br>
+        <td>商品名: </td><br>
+        <td>{{good.goods_name}}</td><br>
+        <td>レンタル料: </td><br>
+        <td>{{good.rental_fee}}</td><br>
+        <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+        <br>
+      </tr>
+    </div>
     {% endfor %}
   </section>
 
