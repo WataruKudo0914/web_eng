@@ -227,7 +227,7 @@ def rental_done():
     price=price,lender_check=lender_check,borrower_check=borrower_check)
     db.session.add(new_deal)
     db.session.commit()
-    return render_template("rental_done.html")
+    return render_template("rental_done.html",new_deal=new_deal)
 
 @app.route("/mypage",methods=["POST"])
 def mypage():
