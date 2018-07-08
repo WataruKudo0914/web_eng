@@ -2,12 +2,14 @@
 {% block title %}サインイン{% endblock %}
 {% block head %}
 {{super()}}
+<link rel="stylesheet" href="../static/sign_in.css">
 {% endblock %}
 
 {% block contents %}
   <header>
-    サインイン
+    <h1>サインイン</h1>
   </header>
+  
   <section id=login>
     <form method="POST" action="/login",enctype="multipart/form-data">
       <input placeholder="名前" name="username" type="text"/>
