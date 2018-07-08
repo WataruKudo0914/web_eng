@@ -1,0 +1,15 @@
+#sign{
+  position: absolute;
+  right : 0px;
+  top : 10px;
+}
+
+#mypage{
+  position: absolute;
+  right : 100px;
+  top : 10px;
+}
+
+header{
+  position : relative;
+}
