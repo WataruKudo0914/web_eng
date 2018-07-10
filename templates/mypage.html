@@ -1,22 +1,23 @@
 {% extends "page_template.html" %}
 {% block title %}My Page{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="../static/various_goods.css">
+<link rel="stylesheet" href="/static/various_goods.css">
+<link rel="stylesheet" href="/static/mypage.css">
 {{super()}}
 {% endblock %}
 
 {% block contents %}
   <section class=profile>
     <h2>UserName</h2>
-    <h2>{{user_information.username}}</h2>
+    <h3>{{user_information.username}}</h3><br>
     <h2>学部</h2>
-    <h2>{{user_information.faculty}}</h2>
+    <h3>{{user_information.faculty}}</h3><br>
     <h2>学科</h2>
-    <h2>{{user_information.major}}</h2>
+    <h3>{{user_information.major}}</h3><br>
     <h2>学年</h2>
-    <h2>{{user_information.grade}}</h2>
+    <h3>{{user_information.grade}}</h3><br>
     <h2>自己紹介</h2>
-    <h2>{{user_information.self_introduction}}</h2>
+    <h3>{{user_information.self_introduction}}</h3><br>
   </section>
 
   <section class=posted_goods>
