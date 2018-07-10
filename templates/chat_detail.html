@@ -16,7 +16,7 @@
 <!-- チャットの投稿画面 -->
 <section class=post_chat>
   <h1>チャットの投稿</h1>
-  <form method="POST" action="/chat_result" enctype="multipart/form-data">
+  <form method="POST" action="/chat_update" enctype="multipart/form-data">
     <label>投稿</label><br>
     <input placeholder="チャットをしましょう" name="one_chat" type="text"/><br>
     <input type="submit" value="送信">
@@ -24,6 +24,7 @@
     <input type="hidden" name=deal_id value={{deal.deal_id}}>
   </form>
 </section>
+
 <!-- 取引の状態を貸す人／借りる人が変更する -->
 <section class=deal_phase>
   <h1>取引状態の変更</h1>
@@ -41,4 +42,8 @@
     <input type="hidden" name=submitter_id value={{current_user.id}}>
     <input type="hidden" name=deal_id value={{deal.deal_id}}>
   </form>
+{% endblock %}
+
+{% block footer %}
+  <a href="/top_page">TOPへ</a>
 {% endblock %}

@@ -51,7 +51,8 @@
             <td>{{good.goods_name}}</td><br>
             <td>レンタル料: </td><br>
             <td>{{good.rental_fee}}</td><br>
-            <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+            <td><a href="/chat/detail/{{Deal_table.query.filter(Deal_table.goods_id==good.goods_id).first().deal_id}}">
+              <img src={{good.filepath1}}/ width=200px height=200px ></a></td>
             <br>
           </tr>
         </div>
@@ -71,12 +72,17 @@
           <td>{{good.goods_name}}</td><br>
           <td>レンタル料: </td><br>
           <td>{{good.rental_fee}}</td><br>
-          <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+          <td><a href="/chat/detail/{{Deal_table.query.filter(Deal_table.goods_id==good.goods_id).first().deal_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
           <br>
         </tr>
       </div>
       {% endfor %}
     </div>
+  </section>
+
+  <section class=negotiated_goods>
+    <div class=various_goods>
+    <h2>交渉中の商品一覧</h2>
   </section>
 {% endblock %}
 

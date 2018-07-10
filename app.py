@@ -131,7 +131,6 @@ def top_page():
 def post_goods():
     return render_template("post_goods.html")
 
-@app.route("/chat/<int:id>")
 def chat(id):
     lend_deal = Deal_table.query.filter(Deal_table.lender_id==id).all()
     # [Deal_table1,Deal_table2]のようにリスト型で帰って来る
@@ -154,10 +153,11 @@ def chat_detail(deal_id):
         chat_dic["speaker"]=User_table.query.filter(User_table.id==chat[num].speaker).first().username
         chat_dic["chat_contents"]=chat[num].chat_contents
         chat_list.append(chat_dic)
+    # return redirect("/chat/detail/{}".format(deal_id))
     return render_template("chat_detail.html",chat_list=chat_list,deal=deal,
         lender_name=lender_name,borrower_name=borrower_name)
 
-@app.route("/chat_result",methods=["POST"])
+@app.route("/chat_update",methods=["POST"])
 def chat_result():
     deal_id = request.form["deal_id"]
     chat_contents=request.form["one_chat"]
@@ -165,7 +165,7 @@ def chat_result():
     new_chat = Chat_table(deal_id=deal_id,speaker=speaker,chat_contents=chat_contents)
     db.session.add(new_chat)
     db.session.commit()
-    return render_template("chat_result.html",deal_id=deal_id)
+    return redirect("/chat/detail/{}".format(deal_id))
 
 
 @app.route("/complete_post_goods",methods=["POST"])
@@ -247,7 +247,7 @@ def mypage():
             lend_goods = Goods_table.query.filter(Goods_table.goods_id == i.goods_id).all()
     else:
         lend_goods = []
-    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods,rental_goods=rental_goods,lend_goods=lend_goods)
+    return render_template("mypage.html",user_information=user_information,posted_goods=posted_goods,rental_goods=rental_goods,lend_goods=lend_goods,Deal_table=Deal_table)
 
 @app.route("/update_phase",methods=["POST"])
 def update_phase():
