@@ -151,6 +151,7 @@ def chat_detail(deal_id):
     chat_list=[]
     for num in range(len(chat)):
         chat_dic={}
+        chat_dic["speaker_id"] = chat[num].speaker
         chat_dic["speaker"]=User_table.query.filter(User_table.id==chat[num].speaker).first().username
         chat_dic["chat_contents"]=chat[num].chat_contents
         chat_list.append(chat_dic)
