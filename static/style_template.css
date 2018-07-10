@@ -106,6 +106,7 @@ header {
     /* height: 100vh; */
     background-position: center;
     background-attachment: fixed;
+    text-align: center;
 }
 
 header h1{

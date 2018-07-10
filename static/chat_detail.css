@@ -1,4 +1,80 @@
 header{
   font-size:30px;
   padding:50px;
+  color: white;
+}
+
+input{
+  background: transparent;
+}
+
+h1{
+  text-align: center;
+}
+
+[type="text"]{
+  width:650px;
+  height: 80px;
+  font-size: 20px;
+}
+
+.chat_contents{
+  border:3px solid rgba(255, 0, 0, 0.5);
+  width: 800px;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.right_chat{
+  text-align: left;
+  margin-bottom:10px;
+  border: 1px solid rgba(255, 0, 0, 0.5);
+  margin-left:auto;
+  margin-right: 30px;
+  width: 350px;
+  border-radius: 30px 0px 30px 30px;
+  padding: 10px 20px;
+}
+
+.right_name{
+  margin-right: 30px;
+  text-align: right;
+}
+
+.left_chat{
+  text-align: left;
+  margin-bottom:10px;
+  border: 1px solid rgba(255, 0, 0, 0.5);
+  margin-right: :auto;
+  margin-left: 30px;
+  width: 350px;
+  border-radius: 10px;
+  border-radius: 0px 30px 30px 30px;
+  padding:10px 20px;
+}
+
+.left_name{
+  text-align: left;
+  margin-left: 30px;
+}
+
+.post_chat{
+  text-align: right;
+  padding-bottom:10px;
+}
+
+/* deal_phase */
+.deal_phase{
+  text-align: center;
+}
+
+select{
+  width: 150px;
+  height: 80px;
+  font-size: 20px;
+}
+
+/* now_condition */
+.now_condition{
+  text-align: center;
 }

@@ -10,24 +10,37 @@
   チャットをしましょう！
 </header>
 
-<!-- チャットを見るところ -->
-<section class=chat_contents>
-  {% for chat_content in chat_list %}
-    <p>話者{{chat_content.speaker}}</p>
-    <p>内容{{chat_content.chat_contents}}</p>
-  {% endfor %}
-</section>
-
 <!-- チャットの投稿画面 -->
-<section class=post_chat>
-  <h1>チャットの投稿</h1>
+<section class=chat_space>
+  <h1>チャット</h1>
   <form method="POST" action="/chat_update" enctype="multipart/form-data">
-    <label>投稿</label><br>
-    <input placeholder="チャットをしましょう" name="one_chat" type="text"/><br>
-    <input type="submit" value="送信">
-    <input type="hidden" name=speaker value={{current_user.id}}>
-    <input type="hidden" name=deal_id value={{deal.deal_id}}>
-  </form>
+    <section class=chat_contents>
+      {% for chat_content in chat_list %}
+        {% if chat_content.speaker_id == current_user.id %}
+          <div class=right_name>
+            <p>{{chat_content.speaker}}</p>
+          </div>
+          <div class=right_chat>
+            <p>{{chat_content.chat_contents}}</p>
+          </div>
+        {% else %}
+          <div class=left_name>
+            <p>{{chat_content.speaker}}</p>
+          </div>
+          <div class=left_chat>
+            <p>{{chat_content.chat_contents}}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+      <section class=post_chat>
+        <input placeholder="チャットをしましょう" name="one_chat" type="text"/>
+        <input type="submit" value="送信">
+        <input type="hidden" name=speaker value={{current_user.id}}>
+        <input type="hidden" name=deal_id value={{deal.deal_id}}>
+      </section>
+    </form>
+  </section>
+
 </section>
 
 <!-- 取引の状態を貸す人／借りる人が変更する -->
@@ -44,9 +57,10 @@
     <input type="hidden" name=deal_id value={{deal.deal_id}}>
     <input type="submit" value="更新">
   </form>
+</section>
 
-
-  <h2>現在の取引状態</h2>
+<section class=now_condition>
+  <h1>現在の取引状態</h1>
   {% if deal.lender_check=="交渉中" and deal.borrower_check=="交渉中" %}
     <h3>交渉中．商品は{{lender_name}}さんが持っています．</h3>
   {% elif deal.lender_check=="レンタル中" and deal.borrower_check=="レンタル中" %}
@@ -56,6 +70,10 @@
   {% else %}
     <h3>両者の取引状態が一致していません．</h3>
   {% endif %}
+</section>
+
+<p><a href="#top">ページの上へ</a></p>
+
 {% endblock %}
 
 {% block footer %}
