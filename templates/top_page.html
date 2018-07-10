@@ -48,8 +48,8 @@
     {% if deal_size != 0 and current_user.is_authenticated %}
       <h1>交渉中／レンタル中 の商品が{{deal_size}}個あります！</h1>
       {% for deal in deal_of_user %}
-        <p>商品:{{deal.goods_id}}</p>
-        <p>商品:{{deal.borrower_id}}</p>
+        <p><a href="/chat/detail/{{deal.deal_id}}">商品名 : {{gtable.query.filter(gtable.goods_id==deal.goods_id).first().goods_name}}</a>
+        </p>
       {% endfor %}
     {% endif %}
   </section>

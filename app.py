@@ -123,12 +123,14 @@ def logout():
 @app.route("/top_page",methods=["POST","GET"])
 def top_page():
     goods = Goods_table.query.all()
+    gtable = Goods_table
     if current_user.is_authenticated:
         deal_of_user = Deal_table.query.filter(((Deal_table.lender_check!="返却済み") | (Deal_table.borrower_check!="返却済み"))
              & ((Deal_table.lender_id==current_user.id) | (Deal_table.borrower_id==current_user.id))).all()
     else:
         deal_of_user = []
-    return render_template("top_page.html",goods=goods,deal_of_user=deal_of_user,deal_size=len(deal_of_user))
+    return render_template("top_page.html",goods=goods,deal_of_user=deal_of_user,deal_size=len(deal_of_user),
+        gtable=gtable)
 
 @app.route("/post_goods")
 def post_goods():
