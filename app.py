@@ -124,8 +124,8 @@ def logout():
 def top_page():
     goods = Goods_table.query.all()
     if current_user.is_authenticated:
-        deal_of_user = Deal_table.query.filter(!(Deal_table.lender_check == "返却済み" and Deal_table.borrower_check == "返却済み")).all() 
-            # and (Deal_table.lender_id==current_user.id or Deal_table.borrower_id==current_user.id)).all()
+        deal_of_user = Deal_table.query.filter(((Deal_table.lender_check!="返却済み") | (Deal_table.borrower_check!="返却済み"))
+             & ((Deal_table.lender_id==current_user.id) | (Deal_table.borrower_id==current_user.id))).all()
     else:
         deal_of_user = []
     return render_template("top_page.html",goods=goods,deal_of_user=deal_of_user,deal_size=len(deal_of_user))
