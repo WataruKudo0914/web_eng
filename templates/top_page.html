@@ -6,10 +6,13 @@
 <link rel="stylesheet" href="../static/style.css">
 
 {{super()}}
+<link rel="stylesheet" href="../static/top_page.css">
+<link rel="stylesheet" href="../static/various_goods.css">
 {% endblock %}
 
 
 {% block contents %}
+
  <header>
     <section id="head" class="header_part">
         <div class="row">
@@ -51,7 +54,6 @@
           <input class="btn btn-ghost" type="hidden" name="id" value="{{current_user.id}}">
         </form>
     {% endif %}
-         </div>
 
     </section>
 
@@ -73,6 +75,7 @@
 
   </section>
 
+
   <section class="various_goodsrow row">
     <div class="row">
 
@@ -80,18 +83,26 @@
         {% for good in goods %}
         <div class="one_good">
         <tr >
+
         <td>出品者: </td><br>
         <td>{{good.username}}</td><br>
         <td>商品名: </td><br>
         <td>{{good.goods_name}}</td><br>
         <td>レンタル料: </td><br>
         <td>{{good.rental_fee}}</td><br>
+
         <td><a href="/goods_detail/{{good.goods_id}}"><img src="{{good.filepath1}}/" width="200px" height="200px" ></a></td>
         <br>
         </tr>
     </div>
     </div>
             
+
+        <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
+        <br>
+      </tr>
+    </div>
+
     {% endfor %}
   </section>
 
@@ -107,6 +118,7 @@
         </div>
 
   </section>
+
 
   <section class="chat">
         <div class="row">

@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="../static/grid.css">
 <!--        <link rel="stylesheet" type="text/css" href="static/css/queries.css">-->
 <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../static/sign_in.css">
 {% endblock %}
 
 
@@ -15,22 +16,30 @@
 
   <header>
      <div class="row sign-up-title">
-      <h2>ユーザー登録</h2>
+      <h1>ユーザー登録</h1>
      </div>
 
   </header>
 
-  <section>
-  <div class="row">
-
+  <section class=register>
+    <h1>ユーザー登録をしましょう</h1><br><br>
     <form method="POST" action="/register" enctype="mulitpart/form-data">
-      <input placeholder="名前" name="username" type="text"/>
-      <input placeholder="パスワード" name="password" type="password"/>
+      <!-- <label for="username">User Name</label><br> -->
+      <input id="username" placeholder="user name" name="username" type="text"/><br><br><br>
+      <!-- <label for="email">メールアドレス</label><br> -->
+      <input id="email" placeholder="e_mailアドレス" name="email" type="email"/><br><br><br>
+      <!-- <label for="password">パスワード</label><br> -->
+      <input id="password" placeholder="パスワード" name="password" type="password"/><br><br><br>
+      <!-- <label for="faculty">学部</label><br> -->
+      <input id="faculty" placeholder="学部" name="faculty" type="text"/><br><br><br>
+      <!-- <label for="major">学科</label><br> -->
+      <input id="major" placeholder="学科" name="major" type="text"/><br><br><br>
+      <!-- <label for="grade">学年</label><br> -->
+      <input id="grade" placeholder="学年" name="grade" type="text"/><br><br><br>
+      <!-- <label for="self_introduction">自己紹介</label><br> -->
+      <input id="self_introduction" placeholder="自己紹介文" name="self_introduction" type="text"/><br><br><br>
       <input value="送信" type="submit"/>
     </form>
-
-    <p>現時点ではしょぼいが、ここをユーザー登録の画面にする適当に入力すると入れます。</p>
-   </div>
   </section>
 
 {% endblock %}

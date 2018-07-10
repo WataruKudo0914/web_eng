@@ -1,0 +1,11 @@
+
+/* div="various_goods"に適用 */
+
+.one_good{
+  height:450px;
+  border: solid;
+  width: 300px;
+  display: inline-block;
+  margin: 10px;
+  text-align :center;
+}

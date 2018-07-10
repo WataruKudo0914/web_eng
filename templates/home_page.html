@@ -2,11 +2,9 @@
 {% block title %}レンタルサービス{% endblock %}
 {% block head %}
 {{super()}}
-<head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-</head>
+    <link rel="stylesheet" href="../static/home_page.css">
 {% endblock %}
 
 {% block contents %}
@@ -17,14 +15,15 @@
                 <ul class="main-nav">
                     <li><a href="#features">サービス概要</a></li>
                     <li><a href="#works">利用ガイド</a></li>
+                    <li><a href="/sign_up">新規登録</a></li>
                     <li><a href="/sign_in">ログイン</a></li>
                 </ul>
             </div>
         </nav>
         <div class="hero-text-box">
             <h1>大学生用レンタルサービス<br>使わなくなったものを売りたい，レンタルしたい</h1>
-            <a class="btn btn-ghost js--scroll-to-plans" href="#">貸したい</a>
-            <a class="btn btn-ghost js--scroll-to-start" href="#">借りたい</a>
+            <a class="btn btn-ghost js--scroll-to-plans" href="#lend_description">貸したい</a>
+            <a class="btn btn-ghost js--scroll-to-start" href="#borrow_description">借りたい</a>
         </div>
     </header>
 
@@ -75,6 +74,40 @@
 
         </div>
     </section>
+
+    <section class="lend_description" id="lend_description">
+      <h2>貸す側にはこんなメリットがあります！！</h2>
+      <p>メリットはこんな感じです．メリットはこんな感じです
+      メリットはこんな感じですメリットはこんな感じですメリットはこんな感じですメリットはこんな感じです
+      メリットはこんな感じです
+      メリットはこんな感じです
+      メリットはこんな感じですメリットはこんな感じですメリットはこんな感じです</p>
+    </section>
+    <section class="sign-up" id="sign-up">
+            <div class="sign-up-box">
+
+            <a class="btn btn-full btn-sign" href="/sign_up">新規登録</a>
+            <a class="btn btn-ghost btn-sign" href="/sign_in">ログイン</a>
+            </div>
+    </section>
+
+    <section class="borrow_description" id="borrow_description">
+      <h2>借りる側にはこんなメリットがあります！！</h2>
+      <p>メリットはこんな感じです．メリットはこんな感じです
+      メリットはこんな感じですメリットはこんな感じですメリットはこんな感じですメリットはこんな感じです
+      メリットはこんな感じです
+      メリットはこんな感じです
+      メリットはこんな感じですメリットはこんな感じですメリットはこんな感じです</p>
+    </section>
+
+    <section class="sign-up" id="sign-up">
+            <div class="sign-up-box">
+
+            <a class="btn btn-full btn-sign" href="/sign_up">新規登録</a>
+            <a class="btn btn-ghost btn-sign" href="/sign_in">ログイン</a>
+            </div>
+    </section>
+
 
 {% endblock %}
 

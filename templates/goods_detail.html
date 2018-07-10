@@ -1,6 +1,7 @@
 {% extends "page_template.html" %}
 {% block title %}page top{% endblock %}
 {% block head %}
+<link rel="stylesheet" href="../static/goods_detail.css">
 {{super()}}
 {% endblock %}
 
@@ -9,13 +10,13 @@
     <h1>商品の詳細</h1>
     {% for g in good %}
     <h2>出品者</h2>
-    <p>{{g.username}}</p>
+    <h2>{{g.username}}</h2>
     <h2>商品名</h2>
-    <p>{{g.goods_name}}</p>
+    <h2>{{g.goods_name}}</h2>
     <h2>レンタル料</h2>
-    <p>{{g.rental_fee}}</p>
+    <h2>{{g.rental_fee}}</h2>
     <h2>説明</h2>
-    <p>{{g.description}}<p>
+    <h2>{{g.description}}<h2>
     <h2>画像</h2>
     <br>
       <img src=/{{g.filepath1}} width=200px height=200px>
@@ -32,7 +33,7 @@
 
   <script>
   function disp(){
-    window.alert("レンタル完了です。\nただちに連絡を取ってください。")
+    window.alert("レンタル完了です。\n直ちに連絡をとってください")
   }
   </script>
 {% endblock %}
