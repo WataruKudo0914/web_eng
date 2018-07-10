@@ -57,8 +57,8 @@ class Deal_table(db.Model):
     lender_id = db.Column(db.Integer,primary_key=False)
     borrower_id = db.Column(db.Integer,primary_key=False)
     price = db.Column(db.Integer,primary_key=False)
-    lender_check = db.Column(db.Boolean) # レンタル中ならTrue．貸す人によるチェック．
-    borrower_check = db.Column(db.Boolean) # レンタル中ならTrue．借りる人によるチェック．
+    lender_check = db.Column(db.String(60)) # "交渉中","レンタル中"．，"返却済み"．貸す人によるチェック．
+    borrower_check = db.Column(db.String(60)) # "交渉中","レンタル中"．，"返却済み"．借りる人によるチェック．
     # def __repr__(self):
         # return '<User %r>'%self.username
 
@@ -221,8 +221,8 @@ def rental_done():
     lender_id = request.form["lender_id"]
     borrower_id = request.form["borrower_id"]
     price = request.form["price"]
-    lender_check = False # 初期値はFalse
-    borrower_check = False
+    lender_check = "交渉中" # 初期値はFalse
+    borrower_check = "交渉中"
     new_deal = Deal_table(goods_id=goods_id,lender_id=lender_id,borrower_id=borrower_id,
     price=price,lender_check=lender_check,borrower_check=borrower_check)
     db.session.add(new_deal)
@@ -253,11 +253,12 @@ def mypage():
 def update_phase():
     submitter_id = int(request.form["submitter_id"]) # formからstrで入ってくる
     deal_id = request.form["deal_id"]
+    selected_phase = request.form["phase"] # "交渉中" or "レンタル中" or "返却済み"
     new_deal = Deal_table.query.filter(Deal_table.deal_id==deal_id).first()
     if submitter_id == new_deal.lender_id: # 状態変更を申し出たのがlenderだったら
-        new_deal.lender_check = not new_deal.lender_check # チェックのブーリアンを反転
+        new_deal.lender_check = selected_phase
     elif submitter_id == new_deal.borrower_id:
-        new_deal.borrower_check = not new_deal.borrower_check
+        new_deal.borrower_check = selected_phase
     else:
         return render_template("error.html")
     db.session.add(new_deal)
