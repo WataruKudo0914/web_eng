@@ -1,15 +1,20 @@
 {% extends "page_template.html" %}
-{% block title %}チャットスペース{% endblock %}
+{% block title %}page top{% endblock %}
 {% block head %}
+<link rel="stylesheet" href="/static/chat_detail.css">
 {{super()}}
 {% endblock %}
 
 {% block contents %}
+<header>
+  チャットをしましょう！
+</header>
+
 <!-- チャットを見るところ -->
 <section class=chat_contents>
   {% for chat_content in chat_list %}
-  <h1>話者{{chat_content.speaker}}</h1>
-  <h1>内容{{chat_content.chat_contents}}<h1>
+    <p>話者{{chat_content.speaker}}</p>
+    <p>内容{{chat_content.chat_contents}}</p>
   {% endfor %}
 </section>
 

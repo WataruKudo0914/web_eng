@@ -9,11 +9,14 @@
   <header>
     <h1>サインイン</h1>
   </header>
-  
-  <section id=login>
+
+
+  <section class=register>
     <form method="POST" action="/login",enctype="multipart/form-data">
-      <input placeholder="名前" name="username" type="text"/>
-      <input placeholder="パスワード" name="password" type="password"/>
+      <h3><label for="username">User Name</label></h3><br>
+      <h3><input id="username" placeholder="名前" name="username" type="text"/></h3><br><br>
+      <h3><label for="password">パスワード</label></h3><br>
+      <h3><input id="password" placeholder="パスワード" name="password" type="password"/></h3><br><br>
       <input value="送信" type="submit"/>
     </form>
   </section>
