@@ -1,6 +1,10 @@
 {% extends "page_template.html" %}
 {% block title %}page top{% endblock %}
 {% block head %}
+<link rel="stylesheet" href="../static/top_page.css">
+<link rel="stylesheet" href="../static/various_goods.css">
+<link rel="stylesheet" href="../static/style.css">
+
 {{super()}}
 <link rel="stylesheet" href="../static/top_page.css">
 <link rel="stylesheet" href="../static/various_goods.css">
@@ -8,85 +12,134 @@
 
 
 {% block contents %}
-  <header>
-    <section id=head>
-      <h1>サービス名</h1>
-      <div id=sub_title>
+
+ <header>
+    <section id="head" class="header_part">
+        <div class="row">
+
+      <h2>サービス名</h2>
+      <div id="sub_title">
         {% if current_user.is_authenticated %}
-          <p>{{current_user.username}}さんようこそ</p>
+          <h4>{{current_user.username}}さんようこそ</h4>
         {% else %}
-          <p>ゲストさんようこそ</p>
+          <h4>ゲストさんようこそ</h4>
         {% endif %}
       </div>
+    </div>
+
     </section>
 
-    <section id=sign>
+    <section id="sign" class="header_part">
+        <div class="row">
+
       {% if current_user.is_authenticated %}
           <form method="POST" action="/logout" enctype="multipart/form-data">
-          <input type="submit" value="logout">
+              <input class="btn btn-ghost" type="submit" value="logout">
           </form>
       {% else %}
           <form method="POST" action="/" enctype="multipart/form-data">
-          <input type="submit" value="log in/sign up">
+               <input class="btn btn-ghost" type="submit" value="log in/sign up">
           </form>
       {% endif %}
+            </div>
 
-    </section>
+    </section >
 
-    <section id=mypage>
+    <section id="mypage" class="header_part">
+        <div class="row">
+
     {% if current_user.is_authenticated %}
         <form method="POST" action="/mypage" enctype="multipart/form-data">
-          <input type="submit" value="mypage">
-          <input type="hidden" name="id" value="{{current_user.id}}">
+          <input class="btn btn-ghost" type="submit" value="mypage">
+          <input class="btn btn-ghost" type="hidden" name="id" value="{{current_user.id}}">
         </form>
     {% endif %}
+
     </section>
 
 
   </header>
 
-  <section id=search_engine>
-    <h1>検索</h1>
-    <p>お好みの商品を探してください</p>
-    <form method="POST" action="/search_result" enctype="multipart/form-data">
-      <input placeholder="商品名" name="search_name" type="text"/><br>
-    </form>
+
+      
+
+  <section class="search_engine">
+        <div class="row">
+
+        <h2>検索</h2>
+        <h4>お好みの商品を探してください</h4>
+        <form method="POST" action="/search_result" enctype="multipart/form-data">
+          <input placeholder="商品名" name="search_name" type="text"/><br>
+        </form>
+        </div>
+
   </section>
 
-  <section class=various_goods>
-    <h1>商品一覧</h1>
-    {% for good in goods %}
-    <div class=one_good>
-      <tr>
+
+  <section class="various_goodsrow row">
+    <div class="row">
+
+        <h2>商品一覧</h2>
+        {% for good in goods %}
+        <div class="one_good">
+        <tr >
+
         <td>出品者: </td><br>
         <td>{{good.username}}</td><br>
         <td>商品名: </td><br>
         <td>{{good.goods_name}}</td><br>
         <td>レンタル料: </td><br>
         <td>{{good.rental_fee}}</td><br>
+
+        <td><a href="/goods_detail/{{good.goods_id}}"><img src="{{good.filepath1}}/" width="200px" height="200px" ></a></td>
+        <br>
+        </tr>
+    </div>
+    </div>
+            
+
         <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=200px ></a></td>
         <br>
       </tr>
     </div>
+
     {% endfor %}
   </section>
 
-  <section id="post_goods">
-    <h1>出品</h1>
-    {% if current_user.is_authenticated %}
-    <h1><a href="/post_goods">こちらから出品</a></h1>
-    {% else %}
-    <h1><a href="/">こちらから出品</a></h1>
-    {% endif %}
+  <section class="" id="post_goods">
+        <div class="row">
+
+        <h2>出品</h2>
+        {% if current_user.is_authenticated %}
+        <h4><a class="btn btn-ghost" href="/post_goods">こちらから出品</a></h4>
+        {% else %}
+        <h4><a class="btn btn-ghost" href="/">こちらから出品</a></h4>
+        {% endif %}
+        </div>
+
   </section>
 
-  <section id=chat>
-    <h1>チャット</h1>
-    {% if current_user.is_authenticated %}
-      <h1><a href="/chat/{{current_user.id}}">チャット</a></h1>
-    {% else %}
-      <h1><a href="/">チャット</a></h1>
-    {% endif %}
+
+  <section class="chat">
+        <div class="row">
+
+        <h2>さあ、連絡を取ってみよう</h2>
+        {% if current_user.is_authenticated %}
+          <h4><a class="btn btn-ghost" href="/chat/{{current_user.id}}">チャット</a></h4>
+        {% else %}
+<!--          <h4><a lass="btn btn-ghost" href="/">チャット</a></h4>-->
+          <h4><a class="btn btn-ghost" href="/chat/{{current_user.id}}">チャット</a></h4>
+
+        {% endif %}
+        </div>
+  </section>
+    <section class="section-features js--section-features" id="features">
+        <div class="row">
+            <h2>授業や趣味で欲しい本を一時的にレンタルしたいよね &mdash; だって、新しく買ったら勿体ない！</h2>
+            <p class="long-copy">
+                私たちは大学生向けに学生同士が安心してお互いに必要なものを貸したり、借りたりするサービスを提供します。
+            </p>
+        </div>
   </section>
 
 {% endblock %}

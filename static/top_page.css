@@ -1,28 +1,44 @@
-/* the whole page */
-
-
-/* header */
-#sign{
-  position: absolute;
-  right : 0px;
-  top : 10px;
+input[type=text],
+input[type=email],
+select,
+textarea {
+    width: 100%;
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
 }
 
-#mypage{
-  position: absolute;
-  right : 100px;
-  top : 10px;
+
+.one_good{
+    text-align: center;
 }
 
-#sub_title{
-  position: absolute;
-  right : 100px;
-  top : 10px;
+input[type=submit] {
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    border-radius: 200px;
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
-header{
-  position : relative;
+.header_part{
+    text-align: center;
+    font-weight: 300;
 }
 
-/* various_goods */
-/* various_goods.cssを利用 */
+/*
+.header_part,
+input[type=submit] 
+{
+   display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 200px;
+    -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+}*/
+
