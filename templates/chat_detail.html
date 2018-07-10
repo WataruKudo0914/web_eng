@@ -27,21 +27,30 @@
 
 <!-- 取引の状態を貸す人／借りる人が変更する -->
 <section class=deal_phase>
-  <h1>取引状態の変更</h1>
-  <h2>現在の状態:</h2>
-  {% if deal.lender_check and deal.borrower_check %}
-    <h3>レンタル中．商品は{{borrower_name}}さん(borrower)が持っています．</h3>
-  {% elif deal.lender_check or deal.borrower_check %}
-    <h3>取引両者の設定している取引状態が一致していません．</h3>
-  {% else %}
-    <h3>レンタル可能．商品は{{lender_name}}さん(lender)が持っています．</h3>
-  {% endif %}
+  <h1>取引状態の更新</h1>
   <form method="POST" action="/update_phase" enctype="multipart/form-data">
-    <label>状態の変更</label><br>
-    <input value="変更する" type="submit"/>
+    <select name="phase">
+      <option selected hidden>{{deal.lender_check if deal.lender_id==current_user.id else deal.borrower_check}}</option>
+      <option value="交渉中">交渉中</option>
+      <option value="レンタル中">レンタル中</option>
+      <option value="返却済み">返却済み</option>
+    </select>
     <input type="hidden" name=submitter_id value={{current_user.id}}>
     <input type="hidden" name=deal_id value={{deal.deal_id}}>
+    <input type="submit" value="更新">
   </form>
+
+
+  <h2>現在の取引状態</h2>
+  {% if deal.lender_check=="交渉中" and deal.borrower_check=="交渉中" %}
+    <h3>交渉中．商品は{{lender_name}}さんが持っています．</h3>
+  {% elif deal.lender_check=="レンタル中" and deal.borrower_check=="レンタル中" %}
+    <h3>レンタル中．商品は{{borrower_name}}さんが持っています．</h3>
+  {% elif deal.lender_check=="返却済み" and deal.borrower_check=="返却済み" %}
+    <h3>返却済み．商品は{{lender_name}}さんが持っています．</h3>
+  {% else %}
+    <h3>両者の取引状態が一致していません．</h3>
+  {% endif %}
 {% endblock %}
 
 {% block footer %}
