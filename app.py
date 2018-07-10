@@ -131,6 +131,7 @@ def top_page():
 def post_goods():
     return render_template("post_goods.html")
 
+@app.route("/chat/<int:id>")
 def chat(id):
     lend_deal = Deal_table.query.filter(Deal_table.lender_id==id).all()
     # [Deal_table1,Deal_table2]のようにリスト型で帰って来る
