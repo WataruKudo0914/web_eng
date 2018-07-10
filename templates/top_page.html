@@ -2,8 +2,8 @@
 {% block title %}page top{% endblock %}
 {% block head %}
 {{super()}}
-<link rel="stylesheet" href="../static/top_page.css">
-<link rel="stylesheet" href="../static/various_goods.css">
+<link rel="stylesheet" href="/static/top_page.css">
+<link rel="stylesheet" href="/static/various_goods.css">
 {% endblock %}
 
 
@@ -45,11 +45,10 @@
 
   </header>
 
-  <section id=search_engine>
-    <h1>検索</h1>
-    <p>お好みの商品を探してください</p>
+  <section class=search_engine>
     <form method="POST" action="/search_result" enctype="multipart/form-data">
-      <input placeholder="商品名" name="search_name" type="text"/><br>
+      <input placeholder="お好みの商品を探してください" name="search_name" type="text"/>
+      <input type="submit" value="検索">
     </form>
   </section>
 
@@ -71,21 +70,21 @@
     {% endfor %}
   </section>
 
-  <section id="post_goods">
+  <section class="post_goods">
     <h1>出品</h1>
     {% if current_user.is_authenticated %}
-    <h1><a href="/post_goods">こちらから出品</a></h1>
+    <h1><a href="/post_goods"><img src="/static/book.jpg" width=300px height=300px></a></h1>
     {% else %}
-    <h1><a href="/">こちらから出品</a></h1>
+    <h1><a href="/"><img src="/static/book.jpg" width=300px height=300px></a></h1>
     {% endif %}
   </section>
 
-  <section id=chat>
+  <section class="chat">
     <h1>チャット</h1>
     {% if current_user.is_authenticated %}
-      <h1><a href="/chat/{{current_user.id}}">チャット</a></h1>
+      <h1><a href="/chat/{{current_user.id}}"><img src="/static/hukidashi.png" width=300px height=300px></a></h1>
     {% else %}
-      <h1><a href="/">チャット</a></h1>
+      <h1><a href="/"><img src="/static/hukidashi.png" width=300px height=300px></a></h1>
     {% endif %}
   </section>
 

@@ -1,11 +1,15 @@
 
 /* div="various_goods"に適用 */
+.various_goods{
+  margin: 10px 30px
+}
 
 .one_good{
   height:450px;
-  border: solid;
-  width: 300px;
+  border: 3px solid brown;
+  width: 290px;
   display: inline-block;
   margin: 10px;
   text-align :center;
+  border-radius: 10px;
 }
