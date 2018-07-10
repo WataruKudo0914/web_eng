@@ -5,7 +5,7 @@ import psycopg2
 import psycopg2.extras
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, login_user, UserMixin,logout_user
+from flask_login import LoginManager, login_user, UserMixin,logout_user,current_user
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -118,19 +118,23 @@ def login():
 @app.route("/logout", methods=["POST"])
 def logout():
     logout_user()
-    goods = Goods_table.query.all()
-    return render_template("top_page.html",goods=goods)
-
+    return redirect("/top_page")
 
 @app.route("/top_page",methods=["POST","GET"])
 def top_page():
     goods = Goods_table.query.all()
-    return render_template("top_page.html",goods=goods)
+    if current_user.is_authenticated:
+        deal_of_user = Deal_table.query.filter(!(Deal_table.lender_check == "返却済み" and Deal_table.borrower_check == "返却済み")).all() 
+            # and (Deal_table.lender_id==current_user.id or Deal_table.borrower_id==current_user.id)).all()
+    else:
+        deal_of_user = []
+    return render_template("top_page.html",goods=goods,deal_of_user=deal_of_user,deal_size=len(deal_of_user))
 
 @app.route("/post_goods")
 def post_goods():
     return render_template("post_goods.html")
 
+@app.route("/chat/<int:id>")
 def chat(id):
     lend_deal = Deal_table.query.filter(Deal_table.lender_id==id).all()
     # [Deal_table1,Deal_table2]のようにリスト型で帰って来る
