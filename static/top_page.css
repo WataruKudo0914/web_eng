@@ -3,6 +3,10 @@ h1{
   text-align: center;
 }
 
+h3{
+  color: white;
+}
+
 /* header */
 #sign{
   position: absolute;
