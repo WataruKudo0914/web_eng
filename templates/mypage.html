@@ -22,29 +22,55 @@
   </section>
 
   <section class=posted_goods>
-    <div class=various_goods>
-      <h1>出品している商品一覧</h1>
-      {% for good in posted_goods %}
-        <div class=one_good>
-          <tr>
-            <td>出品者: </td><br>
-            <td>{{good.username}}</td><br>
-            <td>商品名: </td><br>
-            <td>{{good.goods_name}}</td><br>
-            <td>レンタル料: </td><br>
-            <td>{{good.rental_fee}}</td><br>
-            <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=250px ></a></td>
-            <br>
-          </tr>
-        </div>
-      {% endfor %}
+    <div class=clearfix>
+      <div class=various_goods>
+        <h1>出品している商品一覧</h1>
+        {% for good in posted_goods %}
+          <div class=one_good>
+            <tr>
+              <td>出品者: </td><br>
+              <td>{{good.username}}</td><br>
+              <td>商品名: </td><br>
+              <td>{{good.goods_name}}</td><br>
+              <td>レンタル料: </td><br>
+              <td>{{good.rental_fee}}</td><br>
+              <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=250px ></a></td>
+              <br>
+            </tr>
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </section>
 
   <section class=rental_goods>
-    <div class=various_goods>
-      <h1>レンタルしている商品一覧</h1>
-      {% for good in rental_goods %}
+    <div class=clearfix>
+      <div class=various_goods>
+        <h1>レンタルしている商品一覧</h1>
+        {% for good in rental_goods %}
+          <div class=one_good>
+            <tr>
+              <td>出品者: </td><br>
+              <td>{{good.username}}</td><br>
+              <td>商品名: </td><br>
+              <td>{{good.goods_name}}</td><br>
+              <td>レンタル料: </td><br>
+              <td>{{good.rental_fee}}</td><br>
+              <td><a href="/chat/detail/{{Deal_table.query.filter(Deal_table.goods_id==good.goods_id).first().deal_id}}">
+                <img src={{good.filepath1}}/ width=200px height=250px ></a></td>
+              <br>
+            </tr>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class=lend_goods>
+    <div class=clearfix>
+      <div class=various_goods>
+        <h1>貸している商品一覧</h1>
+        {% for good in lend_goods %}
         <div class=one_good>
           <tr>
             <td>出品者: </td><br>
@@ -53,32 +79,12 @@
             <td>{{good.goods_name}}</td><br>
             <td>レンタル料: </td><br>
             <td>{{good.rental_fee}}</td><br>
-            <td><a href="/chat/detail/{{Deal_table.query.filter(Deal_table.goods_id==good.goods_id).first().deal_id}}">
-              <img src={{good.filepath1}}/ width=200px height=250px ></a></td>
+            <td><a href="/chat/detail/{{Deal_table.query.filter(Deal_table.goods_id==good.goods_id).first().deal_id}}"><img src={{good.filepath1}}/ width=200px height=250px ></a></td>
             <br>
           </tr>
         </div>
-      {% endfor %}
-    </div>
-  </section>
-
-  <section class=lend_goods>
-    <div class=various_goods>
-      <h1>貸している商品一覧</h1>
-      {% for good in lend_goods %}
-      <div class=one_good>
-        <tr>
-          <td>出品者: </td><br>
-          <td>{{good.username}}</td><br>
-          <td>商品名: </td><br>
-          <td>{{good.goods_name}}</td><br>
-          <td>レンタル料: </td><br>
-          <td>{{good.rental_fee}}</td><br>
-          <td><a href="/chat/detail/{{Deal_table.query.filter(Deal_table.goods_id==good.goods_id).first().deal_id}}"><img src={{good.filepath1}}/ width=200px height=250px ></a></td>
-          <br>
-        </tr>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </section>
 

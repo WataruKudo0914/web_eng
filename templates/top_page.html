@@ -10,13 +10,16 @@
 {% block contents %}
   <header>
     <section id=head>
-      <h1>サービス名</h1>
-      <div id=sub_title>
+      <h1>レンドレント</h1>
+      <div id=user>
         {% if current_user.is_authenticated %}
           <p>{{current_user.username}}さんようこそ</p>
         {% else %}
           <p>ゲストさんようこそ</p>
         {% endif %}
+      </div>
+      <div class=sub_title>
+        <h2>同じ大学専用のレンタルサービス</h2>
       </div>
     </section>
 
@@ -61,6 +64,7 @@
     </form>
   </section>
 
+<div class=clearfix>
   <section class=various_goods>
     <h1>商品一覧</h1>
     {% for good in goods %}
@@ -78,6 +82,7 @@
     </div>
     {% endfor %}
   </section>
+</div>
 
   <section class="post_goods">
     <h1>出品</h1>

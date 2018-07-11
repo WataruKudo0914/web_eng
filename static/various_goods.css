@@ -1,7 +1,8 @@
 
 /* div="various_goods"に適用 */
 .various_goods{
-  margin: 10px 30px
+  margin:50px 100px 100px 100px;
+  text-align: center;
 }
 
 .one_good{
@@ -12,6 +13,7 @@
   margin: 10px;
   text-align :center;
   border-radius: 10px;
+  float: left;
 }
 
 img:hover{
@@ -21,3 +23,9 @@ img:hover{
 img{
   margin: none;
 }
+
+ .clearfix:after{
+   content: " ";
+   display: table;
+   clear: both;
+ }

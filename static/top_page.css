@@ -16,7 +16,7 @@ h1{
   top : 10px;
 }
 
-#sub_title{
+#user{
   position: absolute;
   right : 10px;
   top : 10px;
@@ -40,7 +40,7 @@ header{
 }
 
 .search_engine [type=text]:hover{
-  border-color: blue; 
+  border-color: blue;
 }
 
 [type="text"]{
@@ -54,6 +54,7 @@ header{
 
 /* post_goods */
 .post_goods{
+  margin-top: 100px;
   margin-left: 200px;
   margin-right: auto;
   border: 5px solid black;
@@ -63,6 +64,7 @@ header{
 }
 
 .chat{
+  margin-top: 100px;
   margin-left:auto;
   margin-right: 200px;
   width: 400px;

@@ -7,22 +7,24 @@
 
 {% block contents %}
   <section class=search_result>
-    <div classs="various_goods">
-      <h1>検索結果はこちらです。</h1>
-      {% for good in goods %}
-      <div class="one_good">
-        <tr>
-          <td>出品者: </td><br>
-          <td>{{good.username}}</td><br>
-          <td>商品名: </td><br>
-          <td>{{good.goods_name}}</td><br>
-          <td>レンタル料: </td><br>
-          <td>{{good.rental_fee}}</td><br>
-          <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=250px ></a></td>
-          <br>
-        </tr>
+    <div class=clearfix>
+      <div classs="various_goods">
+        <h1>検索結果はこちらです。</h1>
+        {% for good in goods %}
+        <div class="one_good">
+          <tr>
+            <td>出品者: </td><br>
+            <td>{{good.username}}</td><br>
+            <td>商品名: </td><br>
+            <td>{{good.goods_name}}</td><br>
+            <td>レンタル料: </td><br>
+            <td>{{good.rental_fee}}</td><br>
+            <td><a href="/goods_detail/{{good.goods_id}}"><img src={{good.filepath1}}/ width=200px height=250px ></a></td>
+            <br>
+          </tr>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </section>
 {% endblock %}
