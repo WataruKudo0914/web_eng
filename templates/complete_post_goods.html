@@ -3,22 +3,26 @@
 {% block title %}出品{% endblock %}
 {% block head %}
 {{super()}}
+<link rel="stylesheet" href="/static/complete_post_goods.css">
 {% endblock %}
 
 {% block contents %}
   <section class=complete_post_goods>
-    <h1>出品者</h1>
-    <h1>{{username}}</h1>
-    <h1>出品する商品</h1>
-    <h1>{{goods_name}}</h1>
-    <h1>レンタル料</h1>
-    <h1>{{rental_fee}}</h1>
-    <h1>紹介文</h1>
-    <h1>{{description}}</h1>
-    <h1>写真</h1>
-    <img src="{{filepath1}}" width=200px height=200px>
-    <img src="{{filepath2}}" width=200px height=200px>
-    <img src="{{filepath3}}" width=200px height=200px>
+    <h1>出品した商品</h1>
+    <h2>出品者</h2>
+    <h3>{{username}}</h3><br>
+    <h2>出品する商品</h2>
+    <h3>{{goods_name}}</h3><br>
+    <h2>レンタル料</h2>
+    <h3>{{rental_fee}}</h3><br>
+    <h2>紹介文</h2>
+    <h3>{{description}}</h3><br>
+    <h2>写真</h2>
+    <div class=picture_zone>
+      <img src="{{filepath1}}" width=200px height=300px>
+      <img src="{{filepath2}}" width=200px height=300px alt="2枚目の写真">
+      <img src="{{filepath3}}" width=200px height=300px alt="3枚目の写真">
+    </div>
     <p>これで出品しました</p>
   </section>
 {% endblock %}

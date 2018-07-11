@@ -7,3 +7,12 @@
 .goods_detail{
   text-align:center;
 }
+
+.condition{
+  width: 600px;
+  height: 500px;
+}
+
+.condition p{
+  overflow: scroll;
+}
