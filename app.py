@@ -61,7 +61,7 @@ class Deal_table(db.Model):
     borrower_check = db.Column(db.String(60)) # "交渉中","レンタル中"．，"返却済み"．借りる人によるチェック．
     # def __repr__(self):
         # return '<User %r>'%self.username
-
+        
 class Chat_table(db.Model):
     chat_id = db.Column(db.Integer,primary_key=True)
     deal_id = db.Column(db.Integer,primary_key=False)

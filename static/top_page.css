@@ -27,12 +27,20 @@ header{
   position : relative;
 }
 
+#attention a:hover{
+  opacity: 0.5;
+}
+
 /* various_goods */
 /* various_goods.cssを利用 */
 
 /* 検索 */
 .search_engine{
   text-align: center;
+}
+
+.search_engine [type=text]:hover{
+  border-color: blue; 
 }
 
 [type="text"]{
